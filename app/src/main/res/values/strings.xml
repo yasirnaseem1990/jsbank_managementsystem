@@ -75,4 +75,7 @@
     <string name="tv_telenor_golden_number">Telenor Golden Number</string>
     <string name="tv_email_address">E-mail Address</string>
     <string name="btn_text_next">Next</string>
+    <string name="txt_applicant_account_info">ACCOUNT INFORMATION</string>
+    <string name="tv_form_step_2">Step 2 of 8</string>
+    <string name="tv_account_title">Account Title</string>
 </resources>

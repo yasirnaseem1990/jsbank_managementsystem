@@ -162,8 +162,7 @@
                     android:id="@+id/et_name"
                     android:layout_below="@+id/tv_name"
                     android:background="@drawable/custom_border_edit_text"
-                    android:inputType="text"
-                    />
+                    android:inputType="text" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

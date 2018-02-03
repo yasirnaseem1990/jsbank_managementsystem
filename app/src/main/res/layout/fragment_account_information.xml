@@ -4,10 +4,144 @@
     android:layout_height="match_parent"
     tools:context="jsbankagent.management.application.fragments.AccountInformationFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ScrollView01"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="jsbankagent.management.application.fragments.AccountInformationFragment">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/topToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/colorPrimaryDark">
+
+                <ImageView
+                    android:id="@+id/imageviewjslogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_horizontal"
+                    android:paddingRight="5dp"
+                    android:src="@drawable/js_logo_white"
+                    android:textColor="@color/white" />
+
+                <ImageView
+                    android:id="@+id/imageviewMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_horizontal"
+                    android:paddingRight="5dp"
+                    android:src="@drawable/menu_ic" />
+
+            </android.support.v7.widget.Toolbar>
+
+            <RelativeLayout
+                android:id="@+id/header_relativelayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/topToolbar"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/tv_applicant_personal_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/txt_applicant_account_info"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_applicant_personal_info"
+                    android:gravity="end"
+                    android:paddingRight="10dp"
+                    android:text="@string/tv_form_step_2"
+                    android:textColor="@color/color_pending_uploads" />
+            </RelativeLayout>
+            <View
+                android:id="@+id/view_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/header_relativelayout"
+                android:layout_marginTop="5dp"
+                android:background="@color/color_nav_bar"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/form_relativelayout"
+            android:layout_marginTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:layout_below="@+id/view_divider">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_accountTitle"
+                android:text="@string/tv_account_title"
+                android:textSize="15dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_accountTitle"
+                android:layout_below="@+id/tv_accountTitle"
+                android:background="@drawable/custom_border_edit_text"
+                android:inputType="text" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_type_of_current_account"
+                android:layout_below="@+id/et_accountTitle"
+                android:text="@string/tv_courtesy_title"
+                android:textSize="15dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/type_of_current_account_layout"
+                android:layout_below="@+id/tv_type_of_current_account"
+                android:background="@drawable/border_edittext">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:id="@+id/spinner_type_of_current_account"
+                    android:spinnerMode="dropdown"
+                    android:nextFocusDown="@id/et_name" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_type_of_account"
+                android:layout_below="@+id/type_of_current_account_layout"
+                android:text="@string/tv_courtesy_title"
+                android:textSize="15dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/type_of_account_layout"
+                android:layout_below="@+id/tv_type_of_account"
+                android:background="@drawable/border_edittext">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:id="@+id/spinner_type_of_account"
+                    android:spinnerMode="dropdown"
+                    android:nextFocusDown="@id/et_name" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
 
 </FrameLayout>
