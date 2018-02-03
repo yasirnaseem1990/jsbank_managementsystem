@@ -168,7 +168,7 @@ public class AddAgentFragment extends Fragment implements PendingUploadsAsyncRes
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-
+        //todo
         turOnGpsDialog = new TurOnGpsDialog(getContext());
 
         mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
