@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#004890</color>
+    <color name="colorPrimaryDark">#004890</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="color_pending_uploads">#FFF20156</color>
+    <color name="color_submitted">#FF19C753</color>
+    <color name="white">#FEFDFD</color>
+    <color name="login_btn">#f47b1f</color>
+    <color name="color_black">#FF000000</color>
+    <color name="colorBTestMenu">#BABABA</color>
+    <color name="color_nav_bar">#FFB1B0B0</color>
+    <color name="colorDrawerMenuitems">#555555</color>
+</resources>

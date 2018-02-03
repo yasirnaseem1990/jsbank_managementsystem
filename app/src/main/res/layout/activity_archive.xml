@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="jsbankagent.management.application.ArchiveActivity">
+
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/topToolbar"
+        android:background="@color/colorPrimaryDark"
+        android:layout_height="70dp">
+
+        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/imageviewjslogo"
+            android:src="@drawable/js_logo_white"
+            android:paddingRight="5dp"
+            android:textColor="@color/white"
+            android:layout_gravity="end|center_horizontal" />
+        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/imageviewMenu"
+            android:src="@drawable/menu_ico"
+            android:paddingRight="5dp"
+            android:layout_gravity="start|center_horizontal" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/topToolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:id="@+id/listView_phoneSafety"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/listViewAddAgent"
+            android:layout_width="match_parent"
+            android:scrollbarTrackVertical="@color/colorPrimary"
+            android:layout_height="match_parent"
+
+            android:layout_gravity="center_horizontal"
+            android:background="@color/white"
+            android:stackFromBottom="true"
+            android:layout_centerVertical="true">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+</RelativeLayout>

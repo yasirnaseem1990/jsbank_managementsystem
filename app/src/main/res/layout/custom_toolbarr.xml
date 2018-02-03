@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/colorPrimaryDark"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_height="45dp"
+        android:layout_width="wrap_content"
+        android:id="@+id/action_share_on_newsfeed_via_actionbar"
+        android:text="SIGN IN"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:textColor="@color/white"
+        android:layout_gravity="center_vertical"
+        />
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="courtesyTitle">
+        <item>Mr.</item>
+        <item>Mrs.</item>
+        <item>Ms.</item>
+        <item>Messrs</item>
+    </string-array>
+    <string-array name="listGender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Eunuch</item>
+    </string-array>
+
+    <string-array name="listmaritalStatus">
+        <item>Unmarried</item>
+        <item>Married</item>
+    </string-array>
+
+    <string-array name="listQualification">
+        <item>Postgraduate</item>
+        <item>Graduate</item>
+        <item>UnGraduate</item>
+    </string-array>
+
+    <string-array name="listProfession">
+        <item>Salaried</item>
+        <item>Self-employed</item>
+        <item>Minor</item>
+    </string-array>
+
+    <string-array name="listmailingAddress">
+        <item>Residence</item>
+        <item>Office/Business</item>
+
+    </string-array>
+    <string-array name="listusCitizen">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="listtypeofcurrentAccount">
+        <item>JS Business Raabta Current</item>
+        <item>JS Privilege Raabta Current</item>
+        <item>JS Premier Raabta Current</item>
+        <item>JS Pearl Raabta Current</item>
+        <item>JS Executive Raabta Current</item>
+    </string-array>
+
+    <string-array name="listtypeofAccount">
+        <item>Individual</item>
+        <item>Joint</item>
+        <item>Sole Proprietor</item>
+        <item>Registered Partnership</item>
+        <item>Unregistered Partnership</item>
+        <item>Private Limited</item>
+        <item>Public Limited</item>
+        <item>Government Entity</item>
+        <item>Charity Society / NGOs</item>
+        <item>Trust/Club/Society</item>
+    </string-array>
+
+    <string-array name="listCurrency">
+        <item>PKR</item>
+    </string-array>
+    <string-array name="listcountryresidentialStatus">
+        <item>Resident</item>
+        <item>Non-resident</item>
+    </string-array>
+
+    <string-array name="listoperationInstruction">
+        <item>Singly</item>
+        <item>Jointly</item>
+        <item>Either/Survivor</item>
+    </string-array>
+</resources>

@@ -1,0 +1,257 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="jsbankagent.management.application.fragments.AddAgentFragment">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ScrollView01"
+        android:layout_width="fill_parent"
+        android:background="@color/white"
+        android:layout_height="fill_parent" >
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="jsbankagent.management.application.AddAgentActivity">
+
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:id="@+id/topToolbar"
+                android:background="@color/colorPrimaryDark"
+                android:layout_height="70dp">
+
+                <ImageView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/imageviewjslogo"
+                    android:src="@drawable/js_logo_white"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/white"
+                    android:layout_gravity="end|center_horizontal" />
+                <ImageView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/imageviewMenu"
+                    android:src="@drawable/menu_ic"
+                    android:paddingRight="5dp"
+                    android:layout_gravity="start|center_horizontal" />
+
+            </android.support.v7.widget.Toolbar>
+
+
+
+            <RelativeLayout
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:id="@+id/relativelayoutpicture"
+                android:layout_below="@+id/topToolbar"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:gravity="center">
+
+                <EditText
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:visibility="gone"
+                    android:id="@+id/pictureview"/>
+                <ImageView
+                    android:id="@+id/imagview"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/camera_icon"/>
+            </RelativeLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/formlayout"
+                android:layout_below="@+id/relativelayoutpicture">
+                <TableRow
+                    android:id="@+id/tableRow1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_agintId" />
+
+                    <EditText
+                        android:id="@+id/agent_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/border_edittext"
+                        android:ems="10"
+                        android:inputType="text">
+
+                        <requestFocus />
+                    </EditText>
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp" >
+
+                    <TextView
+                        android:id="@+id/textview_agentName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_agentname" />
+
+                    <EditText
+                        android:id="@+id/agent_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/border_edittext"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
+
+                    <TextView
+                        android:id="@+id/textview_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/textview_address" />
+
+                    <EditText
+                        android:id="@+id/edittext_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/border_edittext"/>
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp" >
+
+                    <TextView
+                        android:id="@+id/textview_city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/textview_city"/>
+
+                    <AutoCompleteTextView
+                        android:id="@+id/edittext_city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:ems="10"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/border_edittext"
+                        android:imeOptions="actionDone"
+                        android:inputType="text" />
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
+
+                    <TextView
+                        android:id="@+id/textview_province"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/textview_province" />
+
+                    <EditText
+                        android:id="@+id/edittext_province"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/border_edittext"
+                        android:clickable="false"
+                        android:ems="10"
+
+                        android:inputType="none" />
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
+
+                    <TextView
+                        android:id="@+id/textview_comments"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/textview_comments" />
+
+                    <EditText
+                        android:id="@+id/et_comments"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/border_edittext"
+                        android:ems="10"
+                        android:imeOptions="actionDone"
+                        android:inputType="text" />
+
+                </TableRow>
+            </TableLayout>
+
+          <!--  <RelativeLayout
+                android:id="@+id/relativelayout_comments"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/formlayout"
+                android:layout_centerHorizontal="true">
+
+                <EditText
+                    android:id="@+id/et_comments"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/border_edittext"
+                    android:gravity="top"
+                    android:hint="@string/et_comments"
+                    android:maxLines="10"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp" />
+            </RelativeLayout>-->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/formlayout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/relativeLayout">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/btn_submit"
+                    android:paddingLeft="10dp"
+                    android:id="@+id/btnsave"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</FrameLayout>
