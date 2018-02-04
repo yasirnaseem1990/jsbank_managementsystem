@@ -73,4 +73,21 @@
         <item>Jointly</item>
         <item>Either/Survivor</item>
     </string-array>
+
+    <string-array name="listchequebookRequired">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="listyestchequebookRequired">
+        <item>25 (Twenty Five Leaf)</item>
+        <item>50 (Fifty Leaf)</item>
+        <item>100 (Hundred Leaf)</item>
+    </string-array>
+
+    <string-array name="listzakatApplicable">
+        <item>Yes</item>
+        <item>No</item>
+        <item>(Attached CZ-50 Zakat Exemption Form / Certificate)</item>
+    </string-array>
 </resources>

@@ -106,7 +106,7 @@ public class AddAgentFragment extends Fragment implements PendingUploadsAsyncRes
     public LocationManager mLocationManager;
     Location lastLocation = null;
     private String provider;
-
+    ArrayAdapter adapter = null;
     public AddAgentFragment() {
         // Required empty public constructor
     }
@@ -145,7 +145,7 @@ public class AddAgentFragment extends Fragment implements PendingUploadsAsyncRes
 
         try {
             final String[] namaProvDB = addAgent.SelectAllDataCity();
-            ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, namaProvDB);
+            adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, namaProvDB);
             agentCity.setAdapter(adapter);
             agentCity.setThreshold(1);
             agentCity.dismissDropDown();

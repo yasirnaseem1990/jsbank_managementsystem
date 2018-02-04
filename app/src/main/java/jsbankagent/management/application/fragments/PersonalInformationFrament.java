@@ -4,6 +4,8 @@ package jsbankagent.management.application.fragments;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -45,6 +47,9 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
     public String expirydateofvisa;
     public String dateofbirth;
     private SimpleDateFormat dateFormatter;
+    Fragment fragment;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
 
     public PersonalInformationFrament() {
         // Required empty public constructor
@@ -140,6 +145,12 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
                 try {
                     AppConstants.registrationObject.put("date_of_birth",dateofbirth);
                     AppConstants.registrationObject.put("expiry_date_of_visa",expirydateofvisa);
+
+                    fragment = new AccountInformationFragment();
+                    fragmentManager = getActivity().getSupportFragmentManager();
+                    fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.frame_container, fragment);
+                    fragmentTransaction.commit();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

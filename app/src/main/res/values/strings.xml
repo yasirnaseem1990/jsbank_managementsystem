@@ -70,7 +70,7 @@
     <string name="tv_residential_address">Residential Address</string>
     <string name="tv_residential_contact_no">Residential Contact Number</string>
     <string name="tv_cell_number">Cell Number</string>
-    <string name="tv_office_business_address">Office / Buiness Address</string>
+    <string name="tv_office_business_address">Office / Business Address</string>
     <string name="tv_office_contact_number">Office Contact Number</string>
     <string name="tv_telenor_golden_number">Telenor Golden Number</string>
     <string name="tv_email_address">E-mail Address</string>
@@ -78,4 +78,22 @@
     <string name="txt_applicant_account_info">ACCOUNT INFORMATION</string>
     <string name="tv_form_step_2">Step 2 of 8</string>
     <string name="tv_account_title">Account Title</string>
+    <string name="type_of_current_account">Type of Current Account</string>
+    <string name="type_of_account">Type of Accounts</string>
+    <string name="currency">Currency</string>
+    <string name="country_residental_status">Country Residential Status</string>
+    <string name="operating_instructions">Operating Instructions</string>
+    <string name="cheque_book_required">Cheque Book Required</string>
+    <string name="yes_cheque_book_required">IF (Cheque Book Required) = Yes Then Numbers of Cheques Required</string>
+    <string name="zakat_applicable">Zakat Applicable</string>
+    <string name="txt_applicant_personal_joint_info">Personal Information\n(Joint / Guardian Applicant Section)</string>
+    <string name="tv_form_step_3">Step 3 of 8</string>
+    <string name="personal_info_name">Name</string>
+    <string name="personal_info_nara_number">CNIC/Passport/NICOP/SNIC/NARA Number</string>
+    <string name="personal_info_expiry_nara_number">Expiry CNIC/Passport/NICOP/SNIC/NARA Number</string>
+    <string name="personal_info_expiry_dob">Date of Birth</string>
+    <string name="personal_info_father_name">Father\'s/Husband\'s Name</string>
+    <string name="personal_info_us_citizen">Are you a US Citizen/Resident</string>
+    <string name="personal_info_nationality">Nationality</string>
+    <string name="personal_info_nationalityntn_number">NTN Number</string>
 </resources>

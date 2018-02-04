@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_type_of_current_account"
                 android:layout_below="@+id/et_accountTitle"
-                android:text="@string/tv_courtesy_title"
+                android:text="@string/type_of_current_account"
                 android:textSize="15dp"/>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_type_of_account"
                 android:layout_below="@+id/type_of_current_account_layout"
-                android:text="@string/tv_courtesy_title"
+                android:text="@string/type_of_account"
                 android:textSize="15dp"/>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -139,7 +139,160 @@
                     android:nextFocusDown="@id/et_name" />
             </RelativeLayout>
 
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_currency"
+                android:layout_below="@+id/type_of_account_layout"
+                android:text="@string/currency"
+                android:textSize="15dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/currency_layout"
+                android:layout_below="@+id/tv_currency"
+                android:background="@drawable/border_edittext">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:id="@+id/spinner_currency"
+                    android:spinnerMode="dropdown"
+                    android:nextFocusDown="@id/et_name" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_country_residental_status"
+                android:layout_below="@+id/currency_layout"
+                android:text="@string/country_residental_status"
+                android:textSize="15dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/country_residental_status_layout"
+                android:layout_below="@+id/tv_country_residental_status"
+                android:background="@drawable/border_edittext">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:id="@+id/spinner_country_residental_status"
+                    android:spinnerMode="dropdown"
+                    android:nextFocusDown="@id/et_name" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_operating_instructions"
+                android:layout_below="@+id/country_residental_status_layout"
+                android:text="@string/operating_instructions"
+                android:textSize="15dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/operating_instructions_layout"
+                android:layout_below="@+id/tv_operating_instructions"
+                android:background="@drawable/border_edittext">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:id="@+id/spinner_operating_instructions"
+                    android:spinnerMode="dropdown"
+                    android:nextFocusDown="@id/et_name" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_cheque_book_required"
+                android:layout_below="@+id/operating_instructions_layout"
+                android:text="@string/cheque_book_required"
+                android:textSize="15dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/cheque_book_required_layout"
+                android:layout_below="@+id/tv_cheque_book_required"
+                android:background="@drawable/border_edittext">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:id="@+id/spinner_cheque_book_required"
+                    android:spinnerMode="dropdown"
+                    android:nextFocusDown="@id/et_name" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_yes_cheque_book_required"
+                android:layout_below="@+id/cheque_book_required_layout"
+                android:text="@string/yes_cheque_book_required"
+                android:textSize="15dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/yes_cheque_book_required_layout"
+                android:layout_below="@+id/tv_yes_cheque_book_required"
+                android:background="@drawable/border_edittext">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:id="@+id/spinner_yes_cheque_book_required"
+                    android:spinnerMode="dropdown"
+                    android:nextFocusDown="@id/et_name" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_zakat_applicable"
+                android:layout_below="@+id/yes_cheque_book_required_layout"
+                android:text="@string/zakat_applicable"
+                android:textSize="15dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/zakat_applicable_layout"
+                android:layout_below="@+id/tv_zakat_applicable"
+                android:background="@drawable/border_edittext">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:id="@+id/spinner_zakat_applicable"
+                    android:spinnerMode="dropdown"
+                    android:nextFocusDown="@id/et_name" />
+            </RelativeLayout>
+
         </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_next_relativelayout"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="20dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:layout_below="@+id/form_relativelayout">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_next_step_2"
+                    android:text="@string/btn_text_next"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:background="@color/colorPrimary"/>
+            </RelativeLayout>
 
         </RelativeLayout>
     </ScrollView>
