@@ -4,10 +4,246 @@
     android:layout_height="match_parent"
     tools:context="jsbankagent.management.application.fragments.BusinessAccountInformationFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ScrollView01"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="jsbankagent.management.application.fragments.BusinessAccountInformationFragment">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/topToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/colorPrimaryDark">
+
+                <ImageView
+                    android:id="@+id/imageviewjslogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_horizontal"
+                    android:paddingRight="5dp"
+                    android:src="@drawable/js_logo_white"
+                    android:textColor="@color/white" />
+
+                <ImageView
+                    android:id="@+id/imageviewMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_horizontal"
+                    android:paddingRight="5dp"
+                    android:src="@drawable/menu_ic" />
+
+            </android.support.v7.widget.Toolbar>
+
+
+            <RelativeLayout
+                android:id="@+id/header_relativelayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/topToolbar"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/tv_applicant_personal_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/txt_business_account_info"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_applicant_personal_info"
+                    android:gravity="end"
+                    android:paddingRight="10dp"
+                    android:text="@string/tv_form_step_5"
+                    android:textColor="@color/color_pending_uploads" />
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/view_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/header_relativelayout"
+                android:layout_marginTop="5dp"
+                android:background="@color/color_nav_bar"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/form_relativelayout"
+            android:layout_marginTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:layout_below="@+id/view_divider">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_business_account_info_name"
+                android:text="@string/business_name"
+                android:layout_below="@+id/next_of_kin_layout"
+                android:textSize="15dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_business_account_info_name"
+                android:layout_below="@+id/tv_business_account_info_name"
+                android:background="@drawable/custom_border_edit_text"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_business_account_info_nature_of_business"
+                android:text="@string/business_name"
+                android:layout_below="@+id/et_business_account_info_name"
+                android:textSize="15dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_business_account_info_nature_of_business"
+                android:layout_below="@+id/tv_business_account_info_nature_of_business"
+                android:background="@drawable/custom_border_edit_text"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_business_account_info_registration_number"
+                android:text="@string/business_registration_number"
+                android:layout_below="@+id/et_business_account_info_nature_of_business"
+                android:textSize="15dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_business_account_info_registration_number"
+                android:layout_below="@+id/tv_business_account_info_registration_number"
+                android:background="@drawable/custom_border_edit_text"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_business_account_info_ntn_number"
+                android:text="@string/personal_info_nationalityntn_number"
+                android:layout_below="@+id/et_business_account_info_registration_number"
+                android:textSize="15dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_business_account_info_ntn_number"
+                android:layout_below="@+id/tv_business_account_info_ntn_number"
+                android:background="@drawable/custom_border_edit_text"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_business_account_info_date_of_registration"
+                android:text="@string/business_account_info_date_of_registration"
+                android:layout_below="@+id/et_business_account_info_ntn_number"
+                android:textSize="15dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_business_account_info_date_of_registration"
+                android:layout_below="@+id/tv_business_account_info_date_of_registration"
+                android:background="@drawable/custom_border_edit_text"
+                android:hint="@string/business_account_info_date_of_registration"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_business_account_info_place_of_registration"
+                android:text="@string/business_account_info_place_of_registration"
+                android:layout_below="@+id/et_business_account_info_date_of_registration"
+                android:textSize="15dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_business_account_info_place_of_registration"
+                android:layout_below="@+id/tv_business_account_info_place_of_registration"
+                android:background="@drawable/custom_border_edit_text"
+                android:inputType="text" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_business_account_info_office_address"
+                android:text="@string/tv_office_business_address"
+                android:layout_below="@+id/et_business_account_info_place_of_registration"
+                android:textSize="15dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_business_account_info_office_address"
+                android:layout_below="@+id/tv_business_account_info_office_address"
+                android:background="@drawable/custom_border_edit_text"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_business_account_info_contact_number"
+                android:text="@string/next_of_kin_contact_number"
+                android:layout_below="@+id/et_business_account_info_office_address"
+                android:textSize="15dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_business_account_info_contact_number"
+                android:layout_below="@+id/tv_business_account_info_contact_number"
+                android:background="@drawable/custom_border_edit_text"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_business_account_info_fax_number"
+                android:text="@string/fax_number"
+                android:layout_below="@+id/et_business_account_info_contact_number"
+                android:textSize="15dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_business_account_info_fax_number"
+                android:layout_below="@+id/tv_business_account_info_fax_number"
+                android:background="@drawable/custom_border_edit_text"
+                android:inputType="text" />
+
+        </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_next_relativelayout"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="20dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:layout_below="@+id/form_relativelayout">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_next_step_5"
+                    android:text="@string/btn_text_next"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:background="@color/colorPrimary"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
 
 </FrameLayout>

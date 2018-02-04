@@ -61,7 +61,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     FragmentTransaction fragmentTransaction;
     public static DrawerLayout drawer;
     CircleImageView circleImageView;
-    Button btn_addAgent;
+    Button btn_addAgent,btn_newAccount;
     public LocationManager mLocationManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +83,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.topToolbar);
         iv_menu = findViewById(R.id.imageviewMenu);
         btn_addAgent = findViewById(R.id.btn_add_agent);
+        btn_newAccount = findViewById(R.id.btn_newRegistration);
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView =  navigationView.getHeaderView(0);
         circleImageView = headerView.findViewById(R.id.profile_image);
@@ -141,7 +142,22 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();*/
+        btn_newAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    fragment = new PersonalInformationFrament();
+                    fragmentManager = getSupportFragmentManager();
+                    fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.frame_container, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
 
+            }
+        });
     }
 
     @Override

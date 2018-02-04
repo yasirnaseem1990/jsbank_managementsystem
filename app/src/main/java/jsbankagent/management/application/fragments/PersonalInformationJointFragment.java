@@ -3,12 +3,15 @@ package jsbankagent.management.application.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
@@ -25,7 +28,10 @@ public class PersonalInformationJointFragment extends Fragment {
     ImageView iv_menu;
     Spinner spinnerpersonaljointGender,spinnerpersonaljointusCitizen,spinnerpersonaljointmaritalStatus,spinnerpersonaljointQualification,
             spinnerpersonaljointProfession;
-
+    Button btn_next_step_3;
+    Fragment fragment;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
     public PersonalInformationJointFragment() {
         // Required empty public constructor
     }
@@ -42,8 +48,7 @@ public class PersonalInformationJointFragment extends Fragment {
         spinnerpersonaljointmaritalStatus = personalinfojointFragment.findViewById(R.id.spinner_personal_info_marital_status);
         spinnerpersonaljointQualification = personalinfojointFragment.findViewById(R.id.spinner_personal_info_qualification);
         spinnerpersonaljointProfession = personalinfojointFragment.findViewById(R.id.spinner_personal_info_profession);
-
-
+        btn_next_step_3 = (Button) personalinfojointFragment.findViewById(R.id.btn_next_step_3);
 
 
         iv_menu = personalinfojointFragment.findViewById(R.id.imageviewMenu);
@@ -57,6 +62,20 @@ public class PersonalInformationJointFragment extends Fragment {
                         drawer.closeDrawers();
                 } catch (Exception e) {
                     Log.e("Exception Menu Drawer", "" + e);
+                }
+            }
+        });
+        btn_next_step_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    fragment = new NextOfKinFragment();
+                    fragmentManager = getActivity().getSupportFragmentManager();
+                    fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.frame_container, fragment);
+                    fragmentTransaction.commit();
+                }catch (NullPointerException e){
+                    e.printStackTrace();
                 }
             }
         });

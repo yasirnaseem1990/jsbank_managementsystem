@@ -90,4 +90,44 @@
         <item>No</item>
         <item>(Attached CZ-50 Zakat Exemption Form / Certificate)</item>
     </string-array>
+
+    <string-array name="listdebitcardRequest">
+        <item>Platinum</item>
+        <item>Gold</item>
+        <item>Classic</item>
+    </string-array>
+
+    <string-array name="listsupplementaryCard">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="listsmsAlerts">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="listinternetBanking">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="listmobileBanking">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="listestatement">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="listfrequency">
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Quarterly</item>
+        <item>Half-yearly</item>
+        <item>Yearly</item>
+    </string-array>
 </resources>
