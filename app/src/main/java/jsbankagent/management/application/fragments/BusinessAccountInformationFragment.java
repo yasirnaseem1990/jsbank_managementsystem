@@ -19,6 +19,7 @@ import android.widget.ImageView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import jsbankagent.management.application.R;
 
@@ -50,7 +51,7 @@ public class BusinessAccountInformationFragment extends Fragment implements View
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         businessinfoFragment = inflater.inflate(R.layout.fragment_business_account_information, container, false);
-        et_businessdateofRegistraiton = (EditText) businessinfoFragment.findViewById(R.id.et_business_account_info_registration_number);
+        et_businessdateofRegistraiton = (EditText) businessinfoFragment.findViewById(R.id.et_business_account_info_date_of_registration);
         et_businessdateofRegistraiton.setInputType(InputType.TYPE_NULL);
         btn_next_step5 = businessinfoFragment.findViewById(R.id.btn_next_step_5);
         iv_menu = businessinfoFragment.findViewById(R.id.imageviewMenu);
@@ -88,7 +89,7 @@ public class BusinessAccountInformationFragment extends Fragment implements View
 
     private void setDateTimeField() {
         et_businessdateofRegistraiton.setOnClickListener(this);
-        dateFormatter = new SimpleDateFormat();
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
         Calendar newCalendar = Calendar.getInstance();
         dateofregistrationDatePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
 

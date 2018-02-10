@@ -1,45 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="courtesyTitle">
+        <item>--select--</item>
         <item>Mr.</item>
         <item>Mrs.</item>
         <item>Ms.</item>
         <item>Messrs</item>
     </string-array>
     <string-array name="listGender">
+        <item>--select--</item>
         <item>Male</item>
         <item>Female</item>
         <item>Eunuch</item>
     </string-array>
 
     <string-array name="listmaritalStatus">
+        <item>--select--</item>
         <item>Unmarried</item>
         <item>Married</item>
     </string-array>
 
     <string-array name="listQualification">
+        <item>--select--</item>
         <item>Postgraduate</item>
         <item>Graduate</item>
         <item>UnGraduate</item>
     </string-array>
 
     <string-array name="listProfession">
+        <item>--select--</item>
         <item>Salaried</item>
         <item>Self-employed</item>
         <item>Minor</item>
     </string-array>
 
     <string-array name="listmailingAddress">
+        <item>--select--</item>
         <item>Residence</item>
         <item>Office/Business</item>
 
     </string-array>
     <string-array name="listusCitizen">
+        <item>--select--</item>
         <item>Yes</item>
         <item>No</item>
     </string-array>
 
     <string-array name="listtypeofcurrentAccount">
+        <item>--select--</item>
         <item>JS Business Raabta Current</item>
         <item>JS Privilege Raabta Current</item>
         <item>JS Premier Raabta Current</item>
@@ -48,6 +56,7 @@
     </string-array>
 
     <string-array name="listtypeofAccount">
+        <item>--select--</item>
         <item>Individual</item>
         <item>Joint</item>
         <item>Sole Proprietor</item>
@@ -61,68 +70,81 @@
     </string-array>
 
     <string-array name="listCurrency">
+        <item>--select--</item>
         <item>PKR</item>
     </string-array>
     <string-array name="listcountryresidentialStatus">
+        <item>--select--</item>
         <item>Resident</item>
         <item>Non-resident</item>
     </string-array>
 
     <string-array name="listoperationInstruction">
+        <item>--select--</item>
         <item>Singly</item>
         <item>Jointly</item>
         <item>Either/Survivor</item>
     </string-array>
 
     <string-array name="listchequebookRequired">
+        <item>--select--</item>
         <item>Yes</item>
         <item>No</item>
     </string-array>
 
     <string-array name="listyestchequebookRequired">
+        <item>--select--</item>
         <item>25 (Twenty Five Leaf)</item>
         <item>50 (Fifty Leaf)</item>
         <item>100 (Hundred Leaf)</item>
     </string-array>
 
     <string-array name="listzakatApplicable">
+        <item>--select--</item>
         <item>Yes</item>
         <item>No</item>
         <item>(Attached CZ-50 Zakat Exemption Form / Certificate)</item>
     </string-array>
 
     <string-array name="listdebitcardRequest">
+        <item>--select--</item>
         <item>Platinum</item>
         <item>Gold</item>
         <item>Classic</item>
     </string-array>
 
     <string-array name="listsupplementaryCard">
+        <item>--select--</item>
         <item>Yes</item>
         <item>No</item>
     </string-array>
 
     <string-array name="listsmsAlerts">
+        <item>--select--</item>
         <item>Yes</item>
         <item>No</item>
     </string-array>
 
     <string-array name="listinternetBanking">
+        <item>--select--</item>
         <item>Yes</item>
         <item>No</item>
     </string-array>
 
     <string-array name="listmobileBanking">
+        <item>--select--</item>
         <item>Yes</item>
         <item>No</item>
     </string-array>
 
     <string-array name="listestatement">
+        <item>--select--</item>
         <item>Yes</item>
         <item>No</item>
     </string-array>
 
     <string-array name="listfrequency">
+        <item>--select--</item>
         <item>Daily</item>
         <item>Weekly</item>
         <item>Monthly</item>

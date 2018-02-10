@@ -148,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_personal_info_gender"
                 android:layout_below="@+id/et_personal_info_dob"
-                android:text="@string/type_of_current_account"
+                android:text="@string/tv_gender"
                 android:textSize="15dp"/>
             <RelativeLayout
                 android:layout_width="match_parent"

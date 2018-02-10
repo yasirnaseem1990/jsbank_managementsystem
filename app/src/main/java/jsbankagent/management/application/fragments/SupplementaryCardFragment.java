@@ -22,6 +22,7 @@ import android.widget.Spinner;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import jsbankagent.management.application.R;
 
@@ -71,6 +72,7 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
         et_supplementarycardvisaexpiryDate.setInputType(InputType.TYPE_NULL);
         btn_next_step7 = supplementarycardFragment.findViewById(R.id.btn_next_step_7);
         iv_menu = supplementarycardFragment.findViewById(R.id.imageviewMenu);
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
         iv_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +120,6 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
     private void setDateTimeField() {
         et_supplementarycardDOB.setOnClickListener(this);
         et_supplementarycardvisaexpiryDate.setOnClickListener(this);
-        dateFormatter = new SimpleDateFormat();
         Calendar newCalendar = Calendar.getInstance();
         dateofbirthDatePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
 
