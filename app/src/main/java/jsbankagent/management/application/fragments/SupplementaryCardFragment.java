@@ -2,23 +2,28 @@ package jsbankagent.management.application.fragments;
 
 
 import android.app.DatePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -31,7 +36,7 @@ import static jsbankagent.management.application.HomeActivity.drawer;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SupplementaryCardFragment extends Fragment implements View.OnClickListener {
+public class SupplementaryCardFragment extends Fragment implements View.OnClickListener,AdapterView.OnItemSelectedListener{
 
     View supplementarycardFragment;
     Button btn_next_step7;
@@ -40,11 +45,15 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     Spinner spinnerrequestsupplementaryCard;
+    String requestsupplementaryCard;
     private DatePickerDialog dateofbirthDatePickerDialog;
     private DatePickerDialog expirydateofVisaPickerDialog;
     public String expirydateofvisa;
     public String dateofbirth;
-    EditText et_supplementarycardDOB,et_supplementarycardvisaexpiryDate;
+    EditText et_supplementarycardDOB,et_supplementary_card_full_name,et_supplementary_card_cnic_number,et_supplementarycardvisaexpiryDate,
+            et_supplementary_card_mother_name,et_supplementary_card_name_supplementary;
+    String supplementarycardDOB,supplementary_card_full_name,supplementary_card_cnic_number,supplementarycardvisaexpiryDate,supplementary_card_mother_name,
+            supplementary_card_name_supplementary;
     private SimpleDateFormat dateFormatter;
     public SupplementaryCardFragment() {
         // Required empty public constructor
@@ -64,11 +73,16 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
         supplementarycardFragment = inflater.inflate(R.layout.fragment_supplementary_card, container, false);
 
         spinnerrequestsupplementaryCard = supplementarycardFragment.findViewById(R.id.spinner_supplementary_card_request);
+        et_supplementary_card_full_name = (EditText) supplementarycardFragment.findViewById(R.id.et_supplementary_card_full_name);
+        et_supplementary_card_cnic_number = (EditText) supplementarycardFragment.findViewById(R.id.et_supplementary_card_cnic_number);
+        et_supplementary_card_mother_name = (EditText) supplementarycardFragment.findViewById(R.id.et_supplementary_card_mother_name);
+        et_supplementary_card_name_supplementary = (EditText) supplementarycardFragment.findViewById(R.id.et_supplementary_card_name_supplementary);
+
         et_supplementarycardDOB = (EditText) supplementarycardFragment.findViewById(R.id.et_supplementary_card_dob);
         et_supplementarycardDOB.setInputType(InputType.TYPE_NULL);
         et_supplementarycardDOB.requestFocus();
 
-        et_supplementarycardvisaexpiryDate =  supplementarycardFragment.findViewById(R.id.et_supplementary_card_expiry_cnic_date);
+        et_supplementarycardvisaexpiryDate = (EditText) supplementarycardFragment.findViewById(R.id.et_supplementary_card_expiry_cnic_date);
         et_supplementarycardvisaexpiryDate.setInputType(InputType.TYPE_NULL);
         btn_next_step7 = supplementarycardFragment.findViewById(R.id.btn_next_step_7);
         iv_menu = supplementarycardFragment.findViewById(R.id.imageviewMenu);
@@ -91,11 +105,13 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
             @Override
             public void onClick(View v) {
                 try{
+                    if (!checkFields()){
                     fragment = new EBankingFragment();
                     fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.frame_container, fragment);
                     fragmentTransaction.commit();
+                    }
                 }catch (NullPointerException e){
                     e.printStackTrace();
                 }
@@ -114,6 +130,7 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
 
 
         setDateTimeField();
+        spinnerrequestsupplementaryCard.setOnItemSelectedListener(this);
         return supplementarycardFragment;
     }
 
@@ -156,6 +173,102 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
 
             expirydateofVisaPickerDialog.show();
         }
+
+    }
+
+    //Todo Check Form Fields For Supplementary Card Fragment
+    public boolean checkFields() {
+
+        et_supplementarycardDOB.setError(null);
+        et_supplementary_card_full_name.setError(null);
+        et_supplementary_card_cnic_number.setError(null);
+        et_supplementarycardvisaexpiryDate.setError(null);
+        et_supplementary_card_mother_name.setError(null);
+        et_supplementary_card_name_supplementary.setError(null);
+
+        boolean cancel = false;
+        View focusView = null;
+
+        supplementarycardDOB = et_supplementarycardDOB.getText().toString().trim();
+        supplementary_card_full_name = et_supplementary_card_full_name.getText().toString().trim();
+        supplementary_card_cnic_number = et_supplementary_card_cnic_number.getText().toString().trim();
+        supplementarycardvisaexpiryDate = et_supplementarycardvisaexpiryDate.getText().toString().trim();
+        supplementary_card_mother_name = et_supplementary_card_mother_name.getText().toString().trim();
+        supplementary_card_name_supplementary = et_supplementary_card_name_supplementary.getText().toString().trim();
+
+
+        try {
+            if (TextUtils.isEmpty(requestsupplementaryCard)) {
+                Toast toast =Toast.makeText(getActivity(), "Please select courtesy title", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+                focusView = spinnerrequestsupplementaryCard;
+                cancel = true;
+            } else if (TextUtils.isEmpty(supplementary_card_full_name)) {
+                et_supplementary_card_full_name.setError(getString(R.string.error_field_required));
+                focusView = et_supplementary_card_full_name;
+                cancel = true;
+            } else if (TextUtils.isEmpty(supplementarycardDOB)) {
+
+                et_supplementarycardDOB.setError(getString(R.string.error_field_required));
+                focusView = et_supplementarycardDOB;
+                cancel = true;
+            } else if (TextUtils.isEmpty(supplementary_card_cnic_number)) {
+                et_supplementary_card_cnic_number.setError(getString(R.string.error_field_required));
+                focusView = et_supplementary_card_cnic_number;
+                cancel = true;
+            } else if (TextUtils.isEmpty(supplementarycardvisaexpiryDate)) {
+                et_supplementarycardvisaexpiryDate.setError(getString(R.string.error_field_required));
+                focusView = et_supplementarycardvisaexpiryDate;
+                cancel = true;
+            } else if (TextUtils.isEmpty(supplementary_card_mother_name)) {
+                et_supplementary_card_mother_name.setError(getString(R.string.error_field_required));
+                focusView = et_supplementary_card_mother_name;
+                cancel = true;
+            }else if (TextUtils.isEmpty(supplementary_card_name_supplementary)) {
+                et_supplementary_card_name_supplementary.setError(getString(R.string.error_field_required));
+                focusView = et_supplementary_card_name_supplementary;
+                cancel = true;
+            }
+
+            if (cancel) {
+
+                focusView.requestFocus();
+
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        return cancel;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        TextView tv = (TextView) view;
+        try{
+            if (position == 0) {
+                tv.setTextColor(Color.GRAY);
+            } else {
+                tv.setTextColor(Color.BLACK);
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        try{
+            if (position > 0){
+                switch (parent.getId()){
+                    case R.id.spinner_supplementary_card_request:
+                        requestsupplementaryCard = parent.getSelectedItem().toString();
+                        break;
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 }
