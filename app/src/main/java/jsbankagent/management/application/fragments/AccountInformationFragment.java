@@ -21,7 +21,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
 import jsbankagent.management.application.R;
+import jsbankagent.management.application.utils.AppConstants;
+import jsbankagent.management.application.utils.DataHandler;
 
 import static jsbankagent.management.application.HomeActivity.drawer;
 
@@ -82,17 +86,29 @@ public class AccountInformationFragment extends Fragment implements AdapterView.
         btn_next_step2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try{
-                    if (checkFields()){
-                    fragment = new PersonalInformationJointFragment();
-                    fragmentManager = getActivity().getSupportFragmentManager();
-                    fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.frame_container, fragment);
-                    fragmentTransaction.commit();
+                try {
+                    if (!checkFields()) {
+                        AppConstants.registrationObject.put("account_info_name", et_accountinfo_accountTitle.getText().toString().trim());
+                        AppConstants.registrationObject.put("account_info_type_current_account", typeofcurrentAccount);
+                        AppConstants.registrationObject.put("account_info_typ_account", typeofAccount);
+                        AppConstants.registrationObject.put("account_info_currency", currency);
+                        AppConstants.registrationObject.put("account_info_country_residential_status", countryresidentialStatus);
+                        AppConstants.registrationObject.put("account_info_operating_instructions", operatingInstructions);
+                        AppConstants.registrationObject.put("account_info_chequebook_required", chequebookRequired);
+                        AppConstants.registrationObject.put("account_info_no_chequebook_required", yeschequebookRequired);
+                        AppConstants.registrationObject.put("account_info_zakat_applicable", zakatApplicable);
+
+                        fragment = new PersonalInformationJointFragment();
+                        fragmentManager = getActivity().getSupportFragmentManager();
+                        fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.frame_container, fragment);
+                        DataHandler.updatePreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION,AppConstants.registrationObject.toString());
                     }
-                }catch (NullPointerException e){
-                    e.printStackTrace();
-                }
+                    fragmentTransaction.commit();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
 
             }
         });

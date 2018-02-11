@@ -34,6 +34,7 @@ import java.util.Locale;
 
 import jsbankagent.management.application.R;
 import jsbankagent.management.application.utils.AppConstants;
+import jsbankagent.management.application.utils.DataHandler;
 
 import static jsbankagent.management.application.HomeActivity.drawer;
 
@@ -179,7 +180,7 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
             @Override
             public void onClick(View v) {
                 try {
-                    if (checkFields()) {
+                    if (!checkFields()) {
                         AppConstants.registrationObject.put("personal_info_name", et_personal_info_name.getText().toString().trim());
                         AppConstants.registrationObject.put("personal_info_cnic", et_personal_info_cnic.getText().toString().trim());
                         AppConstants.registrationObject.put("personal_info_expiry_cnic", et_personal_info_expiry_cnic.getText().toString().trim());
@@ -211,6 +212,7 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
                         fragmentTransaction = fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.frame_container, fragment);
                         fragmentTransaction.commit();
+                        DataHandler.updatePreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION,AppConstants.registrationObject.toString());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
