@@ -43,7 +43,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-/*import com.amitshekhar.DebugDB;*/
+import com.amitshekhar.DebugDB;
 import com.crashlytics.android.Crashlytics;
 
 

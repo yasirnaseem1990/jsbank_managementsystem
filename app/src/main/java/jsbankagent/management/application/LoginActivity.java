@@ -25,7 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-/*import com.amitshekhar.DebugDB;*/
+import com.amitshekhar.DebugDB;
 import com.crashlytics.android.Crashlytics;
 
 import org.apache.http.NameValuePair;
@@ -84,6 +84,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+        String db = DebugDB.getAddressLog();
+        Log.e("db",db);
     }
 
     private void Login() {
