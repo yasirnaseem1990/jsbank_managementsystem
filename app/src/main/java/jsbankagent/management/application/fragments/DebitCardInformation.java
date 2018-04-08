@@ -21,7 +21,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import jsbankagent.management.application.R;
+import jsbankagent.management.application.utils.AppConstants;
+import jsbankagent.management.application.utils.DataHandler;
 
 import static jsbankagent.management.application.HomeActivity.drawer;
 
@@ -40,6 +45,9 @@ public class DebitCardInformation extends Fragment implements AdapterView.OnItem
     String debitcardRequest;
     EditText et_debit_card_name_on_debit_card,et_debit_card_mother_name;
     String debit_card_name_on_debit_card,debit_card_mother_name;
+    private String getPreAccountInfo = "";
+    private String supplementarycardNeed = "";
+    private JSONObject jsonObject = null;
     public DebitCardInformation() {
         // Required empty public constructor
     }
@@ -55,6 +63,19 @@ public class DebitCardInformation extends Fragment implements AdapterView.OnItem
         et_debit_card_mother_name = debitcardFragment.findViewById(R.id.et_debit_card_mother_name);
 
         spinnerdebitcardRequest = debitcardFragment.findViewById(R.id.spinner_debit_card_request);
+
+        //TODO Check for Supplementary Card Object
+        getPreAccountInfo = DataHandler.getStringPreferences(AppConstants.PREFERENCE_PRE_ACCOUNT_INFO);
+        Log.e("getPreAccountInfo",getPreAccountInfo);
+        try {
+            jsonObject = new JSONObject(getPreAccountInfo);
+            if (jsonObject != null){
+                supplementarycardNeed = jsonObject.getString("pre_supplementary_card_need");
+                Log.e("supplementarycardNeed",supplementarycardNeed);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         iv_menu = debitcardFragment.findViewById(R.id.imageviewMenu);
         iv_menu.setOnClickListener(new View.OnClickListener() {
@@ -75,13 +96,39 @@ public class DebitCardInformation extends Fragment implements AdapterView.OnItem
             public void onClick(View v) {
                 try{
                     if (!checkFields()){
-                    fragment = new SupplementaryCardFragment();
-                    fragmentManager = getActivity().getSupportFragmentManager();
-                    fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.frame_container, fragment);
-                    fragmentTransaction.commit();
+
+                        if (supplementarycardNeed.equalsIgnoreCase("No")){
+
+                            AppConstants.registrationObject.put("supplementary_card_request", "N/A");
+                            AppConstants.registrationObject.put("supplementary_card_full_name", "N/A");
+                            AppConstants.registrationObject.put("supplementary_card_dobs", "N/A");
+                            AppConstants.registrationObject.put("supplementary_card_relationship", "N/A");
+                            AppConstants.registrationObject.put("supplementary_card_cnic_number", "N/A");
+                            AppConstants.registrationObject.put("supplementary_card_visa_expiry_date", "N/A");
+                            AppConstants.registrationObject.put("supplementary_card_mother_name", "N/A");
+                            AppConstants.registrationObject.put("supplementary_card_name_on_supplementary_card", "N/A");
+
+
+                            Toast.makeText(getActivity(), "Sorry i don't need supplementary debit card", Toast.LENGTH_SHORT).show();
+                        }else {
+
+                            AppConstants.registrationObject.put("debit_card_debit_card_request", debitcardRequest);
+                            AppConstants.registrationObject.put("debit_card_name_on_debit_card", et_debit_card_name_on_debit_card.getText().toString().trim());
+                            AppConstants.registrationObject.put("debit_card_mother_name", et_debit_card_mother_name.getText().toString().trim());
+
+                            fragment = new SupplementaryCardFragment();
+                            fragmentManager = getActivity().getSupportFragmentManager();
+                            fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.frame_container, fragment);
+                            fragmentTransaction.commit();
+                        }
+                        DataHandler.updatePreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION, AppConstants.registrationObject.toString());
+
+
                     }
                 }catch (NullPointerException e){
+                    e.printStackTrace();
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }

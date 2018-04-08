@@ -2,19 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="jsbankagent.management.application.fragments.SupplementaryCardFragment">
+    tools:context="jsbankagent.management.application.fragments.PreAccountInfoFragment">
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/ScrollView01"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@color/white">
+
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="jsbankagent.management.application.fragments.SupplementaryCardFragment">
-
+            tools:context="jsbankagent.management.application.fragments.PreAccountInfoFragment">
             <android.support.v7.widget.Toolbar
                 android:id="@+id/topToolbar"
                 android:layout_width="match_parent"
@@ -52,27 +52,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/txt_supplementary_card"
+                    android:text="@string/txt_applicant_pre_account_info"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_applicant_personal_info"
-                    android:gravity="end"
-                    android:paddingRight="10dp"
-                    android:text="@string/tv_form_step_7"
-                    android:textColor="@color/color_pending_uploads" />
             </RelativeLayout>
-
             <View
                 android:id="@+id/view_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/header_relativelayout"
                 android:layout_marginTop="5dp"
-                android:background="@color/color_nav_bar"/>
+                android:background="@color/color_nav_bar">
+
+            </View>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -82,138 +75,112 @@
             android:paddingRight="10dp"
             android:paddingLeft="10dp"
             android:layout_below="@+id/view_divider">
-
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_supplementary_card_request"
-                android:text="@string/tv_courtesy_title"
+                android:id="@+id/tv_type_of_current_account"
+                android:text="@string/type_of_current_account"
                 android:textSize="15dp"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/supplementary_card_request_layout"
-                android:layout_below="@+id/tv_supplementary_card_request"
+                android:id="@+id/type_of_current_account_layout"
+                android:layout_below="@+id/tv_type_of_current_account"
                 android:background="@drawable/border_edittext">
 
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
-                    android:id="@+id/spinner_supplementary_card_request"
+                    android:id="@+id/spinner_type_of_current_account"
                     android:spinnerMode="dropdown" />
             </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_supplementary_card_full_name"
-                android:text="@string/supplementary_card_full_name"
-                android:layout_below="@+id/supplementary_card_request_layout"
+                android:id="@+id/tv_joint_account_need"
+                android:layout_below="@+id/type_of_current_account_layout"
+                android:text="@string/txt_joint_account_need"
                 android:textSize="15dp"/>
-            <EditText
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/et_supplementary_card_full_name"
-                android:layout_below="@+id/tv_supplementary_card_full_name"
-                android:background="@drawable/custom_border_edit_text"
-                android:inputType="text" />
+                android:id="@+id/type_of_joint_account_need_layout"
+                android:layout_below="@+id/tv_joint_account_need"
+                android:background="@drawable/border_edittext">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_supplementary_card_dob"
-                android:text="@string/tv_dateofbirth"
-                android:layout_below="@+id/et_supplementary_card_full_name"
-                android:textSize="15dp"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/et_supplementary_card_dob"
-                android:layout_below="@+id/tv_supplementary_card_dob"
-                android:background="@drawable/custom_border_edit_text"
-                android:hint="@string/tv_dateofbirth"
-                android:inputType="text" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_supplementary_card_relationship"
-                android:text="@string/tv_relationship"
-                android:layout_below="@+id/et_supplementary_card_dob"
-                android:textSize="15dp"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/et_supplementary_card_relationship"
-                android:layout_below="@+id/tv_supplementary_card_relationship"
-                android:background="@drawable/custom_border_edit_text"
-                android:inputType="text" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_supplementary_card_cnic_number"
-                android:text="@string/supplementary_card_cnic"
-                android:layout_below="@+id/et_supplementary_card_relationship"
-                android:textSize="15dp"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/et_supplementary_card_cnic_number"
-                android:layout_below="@+id/tv_supplementary_card_cnic_number"
-                android:background="@drawable/custom_border_edit_text"
-                android:inputType="text" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_supplementary_card_expiry_cnic_date"
-                android:text="@string/supplementary_card_expiry_cnic_date"
-                android:layout_below="@+id/et_supplementary_card_cnic_number"
-                android:textSize="15dp"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/et_supplementary_card_expiry_cnic_date"
-                android:layout_below="@+id/tv_supplementary_card_expiry_cnic_date"
-                android:background="@drawable/custom_border_edit_text"
-                android:hint="@string/supplementary_card_expiry_cnic_date"
-                android:inputType="text" />
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:id="@+id/spinner_joint_account_need"
+                    android:spinnerMode="dropdown" />
+            </RelativeLayout>
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_supplementary_card_mother_name"
-                android:text="@string/debit_card_mother_name"
-                android:layout_below="@+id/et_supplementary_card_expiry_cnic_date"
+                android:id="@+id/tv_debit_card_need"
+                android:layout_below="@+id/type_of_joint_account_need_layout"
+                android:text="@string/txt_debit_card_need"
                 android:textSize="15dp"/>
-            <EditText
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/et_supplementary_card_mother_name"
-                android:layout_below="@+id/tv_supplementary_card_mother_name"
-                android:background="@drawable/custom_border_edit_text"
-                android:inputType="text" />
+                android:id="@+id/debit_card_need_layout"
+                android:layout_below="@+id/tv_debit_card_need"
+                android:background="@drawable/border_edittext">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:id="@+id/spinner_debit_card_needs"
+                    android:spinnerMode="dropdown" />
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_supplementary_card_name_supplementary"
-                android:text="@string/supplementary_card_name_supplementary"
-                android:layout_below="@+id/et_supplementary_card_mother_name"
+                android:id="@+id/tv_supplementary_card"
+                android:layout_below="@+id/debit_card_need_layout"
+                android:text="@string/txt_supplementary_card_need"
                 android:textSize="15dp"/>
-            <EditText
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/et_supplementary_card_name_supplementary"
-                android:layout_below="@+id/tv_supplementary_card_name_supplementary"
-                android:background="@drawable/custom_border_edit_text"
-                android:inputType="text" />
+                android:id="@+id/supplementary_card_layout"
+                android:layout_below="@+id/tv_supplementary_card"
+                android:background="@drawable/border_edittext">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:id="@+id/spinner_supplementary_card"
+                    android:spinnerMode="dropdown" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_e_banking_need"
+                android:layout_below="@+id/supplementary_card_layout"
+                android:text="@string/txt_e_banking_need"
+                android:textSize="15dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/e_banking_need_layout"
+                android:layout_below="@+id/tv_e_banking_need"
+                android:background="@drawable/border_edittext">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:id="@+id/spinner_e_banking_need"
+                    android:spinnerMode="dropdown" />
+            </RelativeLayout>
 
         </RelativeLayout>
-
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -228,7 +195,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/btn_next_step_7"
+                    android:id="@+id/btn_next"
                     android:text="@string/btn_text_next"
                     android:textColor="@color/white"
                     android:textStyle="bold"
@@ -236,7 +203,5 @@
             </RelativeLayout>
 
         </RelativeLayout>
-
     </ScrollView>
-
 </FrameLayout>

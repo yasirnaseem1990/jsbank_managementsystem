@@ -24,47 +24,52 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
 import jsbankagent.management.application.R;
+import jsbankagent.management.application.utils.AppConstants;
+import jsbankagent.management.application.utils.DataHandler;
 
 import static jsbankagent.management.application.HomeActivity.drawer;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PersonalInformationJointFragment extends Fragment implements View.OnClickListener,AdapterView.OnItemSelectedListener {
+public class PersonalInformationJointFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     View personalinfojointFragment;
     ImageView iv_menu;
-    Spinner spinnerpersonaljointGender,spinnerpersonaljointusCitizen,spinnerpersonaljointmaritalStatus,spinnerpersonaljointQualification,
+    Spinner spinnerpersonaljointGender, spinnerpersonaljointusCitizen, spinnerpersonaljointmaritalStatus, spinnerpersonaljointQualification,
             spinnerpersonaljointProfession;
-    String personaljointGender,personaljointusCitizen,personaljointmaritalStatus,personaljointQualification,personalfjointProfesstion;
-    EditText et_personal_info_joint_name,et_personal_info_nara_joint_number,et_personal_info_joint_expiry_nara_number,
-            et_personal_info_joint_dob,et_personal_info_joint_expiry_date_visa,et_personal_info_joint_expiry_father_name,
-            et_personal_info_joint_nationality,et_personal_info_joint_ntn_number,et_personal_info_joint_place_of_birth,
-            et_personal_info_joint_employer_name,et_personal_info_joint_nature_of_business,et_personal_info_joint_designation,
-            et_personal_info_joint_residential_area,et_personal_info_joint_business_address,et_personal_info_joint_office_contact_number,
-            et_personal_info_joint_residential_contact_number,et_personal_info_joint_cell_number;
+    String personaljointGender, personaljointusCitizen, personaljointmaritalStatus, personaljointQualification, personalfjointProfesstion;
+    EditText et_personal_info_joint_name, et_personal_info_nara_joint_number, et_personal_info_joint_expiry_nara_number,
+            et_personal_info_joint_dob, et_personal_info_joint_expiry_date_visa, et_personal_info_joint_expiry_father_name,
+            et_personal_info_joint_nationality, et_personal_info_joint_ntn_number, et_personal_info_joint_place_of_birth,
+            et_personal_info_joint_employer_name, et_personal_info_joint_nature_of_business, et_personal_info_joint_designation,
+            et_personal_info_joint_residential_area, et_personal_info_joint_business_address, et_personal_info_joint_office_contact_number,
+            et_personal_info_joint_residential_contact_number, et_personal_info_joint_cell_number;
 
-    String personal_info_joint_name,personal_info_nara_joint_number,personal_info_joint_expiry_nara_number,personal_info_joint_dob,
-            personal_info_joint_expiry_date_visa,personal_info_joint_expiry_father_name,personal_info_joint_nationality,
-            personal_info_joint_ntn_number,personal_info_joint_place_of_birth,personal_info_joint_employer_name,
-            personal_info_joint_nature_of_business,personal_info_joint_designation,personal_info_joint_residential_area,
-            personal_info_joint_business_address,personal_info_joint_office_contact_number,personal_info_joint_residential_contact_number,
+    String personal_info_joint_name, personal_info_nara_joint_number, personal_info_joint_expiry_nara_number, personal_info_joint_dob,
+            personal_info_joint_expiry_date_visa, personal_info_joint_expiry_father_name, personal_info_joint_nationality,
+            personal_info_joint_ntn_number, personal_info_joint_place_of_birth, personal_info_joint_employer_name,
+            personal_info_joint_nature_of_business, personal_info_joint_designation, personal_info_joint_residential_area,
+            personal_info_joint_business_address, personal_info_joint_office_contact_number, personal_info_joint_residential_contact_number,
             personal_info_joint_cell_number;
     Button btn_next_step_3;
     Fragment fragment;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
-    private EditText dateofBirth,expirydateofVisa;
+    private EditText dateofBirth, expirydateofVisa;
     private DatePickerDialog dateofbirthDatePickerDialog;
     private DatePickerDialog expirydateofVisaPickerDialog;
     public String expirydateofvisa;
     public String dateofbirth;
     private SimpleDateFormat dateFormatter;
+
     public PersonalInformationJointFragment() {
         // Required empty public constructor
     }
@@ -127,48 +132,76 @@ public class PersonalInformationJointFragment extends Fragment implements View.O
         btn_next_step_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try{
-                    if(checkFields()){
-                    fragment = new NextOfKinFragment();
-                    fragmentManager = getActivity().getSupportFragmentManager();
-                    fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.frame_container, fragment);
-                    fragmentTransaction.commit();
+                try {
+                    if (!checkFields()) {
+
+
+                        AppConstants.registrationObject.put("personal_info_joint_name", et_personal_info_joint_name.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_nara_joint_number", et_personal_info_nara_joint_number.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_nara_expiry_joint_number", et_personal_info_joint_expiry_nara_number.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_joint_dob", et_personal_info_joint_dob.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_joint_gender", personaljointGender);
+                        AppConstants.registrationObject.put("personal_info_joint_expiry_date_visa", et_personal_info_joint_expiry_date_visa.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_joint_father_name", et_personal_info_joint_expiry_father_name.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_joint_us_citizen", personaljointusCitizen);
+                        AppConstants.registrationObject.put("personal_info_joint_nationality", et_personal_info_joint_nationality.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_joint_ntn_number", et_personal_info_joint_ntn_number.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_joint_place_of_birth", et_personal_info_joint_place_of_birth.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_joint_marital_status", personaljointmaritalStatus);
+                        AppConstants.registrationObject.put("personal_info_joint_qualification", personaljointQualification);
+                        AppConstants.registrationObject.put("personal_info_joint_professtion", personalfjointProfesstion);
+                        AppConstants.registrationObject.put("personal_info_joint_employer_name", et_personal_info_joint_employer_name.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_joint_nature_of_business", et_personal_info_joint_nature_of_business.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_joint_designation", et_personal_info_joint_designation.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_joint_residential_area", et_personal_info_joint_residential_area.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_joint_business_address", et_personal_info_joint_business_address.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_joint_office_contact_number", et_personal_info_joint_office_contact_number.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_joint_residential_contact_number", et_personal_info_joint_residential_contact_number.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_joint_cell_number", et_personal_info_joint_cell_number.getText().toString().trim());
+
+                        fragment = new NextOfKinFragment();
+                        fragmentManager = getActivity().getSupportFragmentManager();
+                        fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.frame_container, fragment);
+                        fragmentTransaction.commit();
+                        DataHandler.updatePreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION, AppConstants.registrationObject.toString());
+
                     }
-                }catch (NullPointerException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
 
             }
         });
 
         //Gender Spinner
         ArrayAdapter<CharSequence> personalinfojointgenderAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.listGender,android.R.layout.simple_spinner_item);
+                R.array.listGender, android.R.layout.simple_spinner_item);
         personalinfojointgenderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerpersonaljointGender.setAdapter(personalinfojointgenderAdapter);
 
         //us citizen
         ArrayAdapter<CharSequence> personalinfojointuscitizenAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.listusCitizen,android.R.layout.simple_spinner_item);
+                R.array.listusCitizen, android.R.layout.simple_spinner_item);
         personalinfojointuscitizenAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerpersonaljointusCitizen.setAdapter(personalinfojointuscitizenAdapter);
 
         //martial status Spinner
         ArrayAdapter<CharSequence> personalinfojointmaritalstatusAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.listmaritalStatus,android.R.layout.simple_spinner_item);
+                R.array.listmaritalStatus, android.R.layout.simple_spinner_item);
         personalinfojointmaritalstatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerpersonaljointmaritalStatus.setAdapter(personalinfojointmaritalstatusAdapter);
 
         //qualification Spinner
         ArrayAdapter<CharSequence> personalinfojointqualificationAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.listQualification,android.R.layout.simple_spinner_item);
+                R.array.listQualification, android.R.layout.simple_spinner_item);
         personalinfojointqualificationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerpersonaljointQualification.setAdapter(personalinfojointqualificationAdapter);
 
         //qualification Spinner
         ArrayAdapter<CharSequence> personalinfojointprofessionAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.listProfession,android.R.layout.simple_spinner_item);
+                R.array.listProfession, android.R.layout.simple_spinner_item);
         personalinfojointprofessionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerpersonaljointProfession.setAdapter(personalinfojointprofessionAdapter);
 
@@ -196,10 +229,10 @@ public class PersonalInformationJointFragment extends Fragment implements View.O
                 newDate.set(year, monthOfYear, dayOfMonth);
                 dateofBirth.setText(dateFormatter.format(newDate.getTime()));
                 dateofbirth = dateofBirth.getText().toString();
-                Log.e("dateofbirth",dateofbirth);
+                Log.e("dateofbirth", dateofbirth);
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
         expirydateofVisaPickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
 
@@ -208,18 +241,18 @@ public class PersonalInformationJointFragment extends Fragment implements View.O
                 newDate.set(year, monthOfYear, dayOfMonth);
                 expirydateofVisa.setText(dateFormatter.format(newDate.getTime()));
                 expirydateofvisa = expirydateofVisa.getText().toString();
-                Log.e("expirydateofvisa",expirydateofvisa);
+                Log.e("expirydateofvisa", expirydateofvisa);
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
     }
 
 
     @Override
     public void onClick(View v) {
-        if(v == dateofBirth){
+        if (v == dateofBirth) {
             dateofbirthDatePickerDialog.show();
-        }else if (v == expirydateofVisa){
+        } else if (v == expirydateofVisa) {
 
             expirydateofVisaPickerDialog.show();
         }
@@ -279,105 +312,92 @@ public class PersonalInformationJointFragment extends Fragment implements View.O
                 et_personal_info_nara_joint_number.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_nara_joint_number;
                 cancel = true;
-            }
-            else if (TextUtils.isEmpty(personal_info_joint_expiry_nara_number)) {
+            } else if (TextUtils.isEmpty(personal_info_joint_expiry_nara_number)) {
                 et_personal_info_joint_expiry_nara_number.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_joint_expiry_nara_number;
                 cancel = true;
-            }
-            else if (TextUtils.isEmpty(personal_info_joint_dob)) {
+            } else if (TextUtils.isEmpty(personal_info_joint_dob)) {
                 et_personal_info_joint_dob.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_joint_dob;
                 cancel = true;
-            }
-            else if (TextUtils.isEmpty(personal_info_joint_expiry_date_visa)) {
+            } else if (TextUtils.isEmpty(personal_info_joint_expiry_date_visa)) {
                 et_personal_info_joint_expiry_date_visa.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_joint_expiry_date_visa;
                 cancel = true;
-            }
-            else if (TextUtils.isEmpty(personal_info_joint_expiry_father_name)) {
+            } else if (TextUtils.isEmpty(personal_info_joint_expiry_father_name)) {
                 et_personal_info_joint_expiry_father_name.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_joint_expiry_father_name;
                 cancel = true;
-            }
-            else if (TextUtils.isEmpty(personal_info_joint_nationality)) {
+            } else if (TextUtils.isEmpty(personal_info_joint_nationality)) {
                 et_personal_info_joint_nationality.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_joint_nationality;
                 cancel = true;
-            }else if (TextUtils.isEmpty(personal_info_joint_ntn_number)) {
+            } else if (TextUtils.isEmpty(personal_info_joint_ntn_number)) {
                 et_personal_info_joint_ntn_number.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_joint_ntn_number;
                 cancel = true;
-            }
-            else if (TextUtils.isEmpty(personal_info_joint_place_of_birth)) {
+            } else if (TextUtils.isEmpty(personal_info_joint_place_of_birth)) {
                 et_personal_info_joint_place_of_birth.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_joint_place_of_birth;
                 cancel = true;
-            }
-            else if (TextUtils.isEmpty(personal_info_joint_employer_name)) {
+            } else if (TextUtils.isEmpty(personal_info_joint_employer_name)) {
                 et_personal_info_joint_employer_name.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_joint_employer_name;
                 cancel = true;
-            }else if (TextUtils.isEmpty(personal_info_joint_nature_of_business)) {
+            } else if (TextUtils.isEmpty(personal_info_joint_nature_of_business)) {
                 et_personal_info_joint_nature_of_business.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_joint_nature_of_business;
                 cancel = true;
-            }else if (TextUtils.isEmpty(personal_info_joint_designation)) {
+            } else if (TextUtils.isEmpty(personal_info_joint_designation)) {
                 et_personal_info_joint_designation.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_joint_designation;
                 cancel = true;
-            }else if (TextUtils.isEmpty(personal_info_joint_residential_area)) {
+            } else if (TextUtils.isEmpty(personal_info_joint_residential_area)) {
                 et_personal_info_joint_residential_area.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_joint_residential_area;
                 cancel = true;
-            }else if (TextUtils.isEmpty(personal_info_joint_business_address)) {
+            } else if (TextUtils.isEmpty(personal_info_joint_business_address)) {
                 et_personal_info_joint_business_address.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_joint_business_address;
                 cancel = true;
-            }
-            else if (TextUtils.isEmpty(personal_info_joint_office_contact_number)) {
+            } else if (TextUtils.isEmpty(personal_info_joint_office_contact_number)) {
                 et_personal_info_joint_office_contact_number.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_joint_office_contact_number;
                 cancel = true;
-            }else if (TextUtils.isEmpty(personal_info_joint_residential_contact_number)) {
+            } else if (TextUtils.isEmpty(personal_info_joint_residential_contact_number)) {
                 et_personal_info_joint_residential_contact_number.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_joint_residential_contact_number;
                 cancel = true;
-            }else if (TextUtils.isEmpty(personal_info_joint_cell_number)) {
+            } else if (TextUtils.isEmpty(personal_info_joint_cell_number)) {
                 et_personal_info_joint_cell_number.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_joint_cell_number;
                 cancel = true;
-            }
-            else if (TextUtils.isEmpty(personaljointGender)) {
-                Toast toast =Toast.makeText(getActivity(), "Please select your gender", Toast.LENGTH_SHORT);
+            } else if (TextUtils.isEmpty(personaljointGender)) {
+                Toast toast = Toast.makeText(getActivity(), "Please select your gender", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                 toast.show();
                 focusView = spinnerpersonaljointGender;
                 cancel = true;
-            }
-            else if (TextUtils.isEmpty(personaljointusCitizen)) {
-                Toast toast =Toast.makeText(getActivity(), "Please select US Citizen", Toast.LENGTH_SHORT);
+            } else if (TextUtils.isEmpty(personaljointusCitizen)) {
+                Toast toast = Toast.makeText(getActivity(), "Please select US Citizen", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                 toast.show();
                 focusView = spinnerpersonaljointusCitizen;
                 cancel = true;
-            }
-            else if (TextUtils.isEmpty(personaljointmaritalStatus)) {
-                Toast toast =Toast.makeText(getActivity(), "Please select your marital status", Toast.LENGTH_SHORT);
+            } else if (TextUtils.isEmpty(personaljointmaritalStatus)) {
+                Toast toast = Toast.makeText(getActivity(), "Please select your marital status", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                 toast.show();
                 focusView = spinnerpersonaljointmaritalStatus;
                 cancel = true;
-            }
-            else if (TextUtils.isEmpty(personaljointQualification)) {
-                Toast toast =Toast.makeText(getActivity(), "Please select your qualification", Toast.LENGTH_SHORT);
+            } else if (TextUtils.isEmpty(personaljointQualification)) {
+                Toast toast = Toast.makeText(getActivity(), "Please select your qualification", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                 toast.show();
                 focusView = spinnerpersonaljointQualification;
                 cancel = true;
-            }
-            else if (TextUtils.isEmpty(personalfjointProfesstion)) {
-                Toast toast =Toast.makeText(getActivity(), "Please select your profession", Toast.LENGTH_SHORT);
+            } else if (TextUtils.isEmpty(personalfjointProfesstion)) {
+                Toast toast = Toast.makeText(getActivity(), "Please select your profession", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                 toast.show();
                 focusView = spinnerpersonaljointProfession;
@@ -397,19 +417,19 @@ public class PersonalInformationJointFragment extends Fragment implements View.O
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         TextView tv = (TextView) view;
-        try{
+        try {
             if (position == 0) {
                 tv.setTextColor(Color.GRAY);
             } else {
                 tv.setTextColor(Color.BLACK);
             }
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
 
-        try{
-            if (position > 0){
-                switch (parent.getId()){
+        try {
+            if (position > 0) {
+                switch (parent.getId()) {
                     case R.id.spinner_personal_info_gender:
                         personaljointGender = parent.getSelectedItem().toString();
                         break;
@@ -427,7 +447,7 @@ public class PersonalInformationJointFragment extends Fragment implements View.O
                         break;
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -136,6 +136,16 @@
         <item>Yes</item>
         <item>No</item>
     </string-array>
+    <string-array name="jointaccountNeed">
+        <item>--select--</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+    <string-array name="debitcardNeed">
+        <item>--select--</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
 
     <string-array name="listestatement">
         <item>--select--</item>

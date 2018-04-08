@@ -1,14 +1,26 @@
 package jsbankagent.management.application.fragments;
 
 
+import android.Manifest;
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,6 +40,9 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -36,6 +51,7 @@ import jsbankagent.management.application.R;
 import jsbankagent.management.application.utils.AppConstants;
 import jsbankagent.management.application.utils.DataHandler;
 
+import static android.app.Activity.RESULT_OK;
 import static jsbankagent.management.application.HomeActivity.drawer;
 
 /**
@@ -45,6 +61,7 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
     View personalinformatinoFragment;
     ImageView iv_menu;
     Button btnNext;
+    ImageView btn_person_image, btn_cnic_front, btn_cnic_back;
     Spinner spinnercourtesyTitle, spinnerGender, spinnermaritalStatus, spinnerQaulification, spinnerProfession,
             spinnermailingAddress, spinnerusCitizen;
     EditText et_personal_info_name, et_personal_info_cnic, et_personal_info_expiry_cnic, et_personal_info_dob, et_personal_info_nationality,
@@ -62,10 +79,20 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
     public String expirydateofvisa;
     public String dateofbirth;
     private SimpleDateFormat dateFormatter;
+    private final int PERSON_IMAGE_CAMERA_REQUEST = 420;
+    private final int CNIC_FRONT_IMAGE_CAMERA_REQUEST = 421;
+    private final int CNIC_BACK_IMAGE_CAMERA_REQUEST = 422;
+    private final int CAMERA_REQUEST = 123;
+
     Fragment fragment;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     String courtesyTitle, gender, maritalStatus, qualification, profession, mailainAddress, usCitizen;
+    private String newaccountpicturePath = "";
+    private Uri selectedImage;
+    private String base64personImage = "";
+    private String base64cnicfrontImage = "";
+    private String base64cnicbackImage = "";
 
     public PersonalInformationFrament() {
         // Required empty public constructor
@@ -105,6 +132,10 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
         et_personal_info_telenor_golden_no = (EditText) personalinformatinoFragment.findViewById(R.id.et_telenor_golden_number);
         et_personal_info_email = (EditText) personalinformatinoFragment.findViewById(R.id.et_email_address);
 
+        //Intiliaze the Button
+        btn_person_image = (ImageView) personalinformatinoFragment.findViewById(R.id.btn_person_image);
+        btn_cnic_front = (ImageView) personalinformatinoFragment.findViewById(R.id.btn_cnic_front);
+        btn_cnic_back = (ImageView) personalinformatinoFragment.findViewById(R.id.btn_cnic_back);
 
         AppConstants.registrationObject = new JSONObject();
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
@@ -181,17 +212,24 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
             public void onClick(View v) {
                 try {
                     if (!checkFields()) {
+                        AppConstants.registrationObject.put("personal_info_courtesy_title", courtesyTitle);
                         AppConstants.registrationObject.put("personal_info_name", et_personal_info_name.getText().toString().trim());
                         AppConstants.registrationObject.put("personal_info_cnic", et_personal_info_cnic.getText().toString().trim());
                         AppConstants.registrationObject.put("personal_info_expiry_cnic", et_personal_info_expiry_cnic.getText().toString().trim());
                         AppConstants.registrationObject.put("personal_info_dob", et_personal_info_dob.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_gender", gender);
                         AppConstants.registrationObject.put("personal_info_nationality", et_personal_info_nationality.getText().toString().trim());
                         AppConstants.registrationObject.put("personal_info_ntn_number", et_personal_info_ntn_number.getText().toString().trim());
                         AppConstants.registrationObject.put("personal_info_placeofbirth", et_personal_info_place_birth.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_marital_status", maritalStatus);
+                        AppConstants.registrationObject.put("personal_info_qualification", qualification);
+                        AppConstants.registrationObject.put("personal_info_profession", profession);
                         AppConstants.registrationObject.put("personal_info_employee_business", et_personal_info_employee_business.getText().toString().trim());
                         AppConstants.registrationObject.put("personal_info_nature_business", et_personal_info_nature_business.getText().toString().trim());
                         AppConstants.registrationObject.put("personal_info_designation", et_personal_info_designation.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_mailainAddress", mailainAddress);
                         AppConstants.registrationObject.put("personal_info_father_name", et_personal_info_father_husband_name.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_uscitizen", usCitizen);
                         AppConstants.registrationObject.put("personal_info_visa_expiry_date", et_personal_info_visa_expiry_date.getText().toString().trim());
                         AppConstants.registrationObject.put("personal_info_residential_address", et_personal_info_residential_address.getText().toString().trim());
                         AppConstants.registrationObject.put("personal_info_residential_contact_no", et_personal_info_residential_contact_no.getText().toString().trim());
@@ -200,19 +238,18 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
                         AppConstants.registrationObject.put("personal_info_office_number", et_personal_info_office_number.getText().toString().trim());
                         AppConstants.registrationObject.put("personal_info_telenor_golden_no", et_personal_info_telenor_golden_no.getText().toString().trim());
                         AppConstants.registrationObject.put("personal_info_email", et_personal_info_email.getText().toString().trim());
-                        AppConstants.registrationObject.put("personal_info_courtesy_title", courtesyTitle);
-                        AppConstants.registrationObject.put("personal_info_gender", gender);
-                        AppConstants.registrationObject.put("personal_info_marital_status", maritalStatus);
-                        AppConstants.registrationObject.put("personal_info_qualification", qualification);
-                        AppConstants.registrationObject.put("personal_info_profession", profession);
-                        AppConstants.registrationObject.put("personal_info_mailainAddress", mailainAddress);
-                        AppConstants.registrationObject.put("personal_info_uscitizen", usCitizen);
+
+                        //TODO Saving BASE64 of three images in AppConstants Registration Object JsonObject
+                        AppConstants.registrationObject.put("person_image", base64personImage);
+                        AppConstants.registrationObject.put("cnic_front_image", base64cnicfrontImage);
+                        AppConstants.registrationObject.put("cnic_back_image", base64cnicbackImage);
+
                         fragment = new AccountInformationFragment();
                         fragmentManager = getActivity().getSupportFragmentManager();
                         fragmentTransaction = fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.frame_container, fragment);
                         fragmentTransaction.commit();
-                        DataHandler.updatePreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION,AppConstants.registrationObject.toString());
+                        DataHandler.updatePreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION, AppConstants.registrationObject.toString());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -226,9 +263,62 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
         spinnerProfession.setOnItemSelectedListener(this);
         spinnermailingAddress.setOnItemSelectedListener(this);
         spinnerusCitizen.setOnItemSelectedListener(this);
+
+        //TODO Listener for Camera Open
+        btn_person_image.setOnClickListener(this);
+        btn_cnic_front.setOnClickListener(this);
+        btn_cnic_back.setOnClickListener(this);
+
+
         return personalinformatinoFragment;
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        switch (requestCode) {
+            case 420:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                        btn_person_image.setImageBitmap(bitmap);
+                        //TODO Calling the CompressFunction which will compress the image and then return the Picture Path
+                        String personimagePath  = CompressImage(getActivity(), bitmap);
+                        base64personImage  = changeImageToBase64(personimagePath);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case 421:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                        btn_cnic_front.setImageBitmap(bitmap);
+                        //TODO Calling the CompressFunction which will compress the image and then return the Picture Path
+                        String cnicfrontimagePath = CompressImage(getActivity(), bitmap);
+                        base64cnicfrontImage = changeImageToBase64(cnicfrontimagePath);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case 422:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                        btn_cnic_back.setImageBitmap(bitmap);
+                        //TODO Calling the CompressFunction which will compress the image and then return the Picture Path
+                        String cnicbackimagePath = CompressImage(getActivity(), bitmap);
+                        base64cnicbackImage = changeImageToBase64(cnicbackimagePath);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                break;
+        }
     }
 
     private void findViewsById() {
@@ -279,19 +369,61 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
 
             expirydateofVisaPickerDialog.show();
         }
+        switch (v.getId()) {
+            case R.id.btn_person_image:
+                try {
+                    if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        explain("You need to give mandatory permissions to continue. Do you want to go to app settings?");
+                    } else {
+                        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                        /*cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);*/
+                        startActivityForResult(cameraIntent, PERSON_IMAGE_CAMERA_REQUEST);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.btn_cnic_front:
+                try {
+                    if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        explain("You need to give mandatory permissions to continue. Do you want to go to app settings?");
+                    } else {
+                        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                        /*cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);*/
+                        startActivityForResult(cameraIntent, CNIC_FRONT_IMAGE_CAMERA_REQUEST);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.btn_cnic_back:
+                try {
+                    if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        explain("You need to give mandatory permissions to continue. Do you want to go to app settings?");
+                    } else {
+                        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                        /*cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);*/
+                        startActivityForResult(cameraIntent, CNIC_BACK_IMAGE_CAMERA_REQUEST);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+
+        }
 
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         TextView tv = (TextView) view;
-        try{
+        try {
             if (position == 0) {
                 tv.setTextColor(Color.GRAY);
             } else {
                 tv.setTextColor(Color.BLACK);
             }
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
 
@@ -326,7 +458,7 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
 
     }
 
-    public boolean checkFields() {
+    private boolean checkFields() {
 
         et_personal_info_name.setError(null);
         et_personal_info_cnic.setError(null);
@@ -450,6 +582,24 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
                 et_personal_info_email.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_email;
                 cancel = true;
+            } else if (TextUtils.isEmpty(base64personImage)){
+                Toast toast = Toast.makeText(getActivity(), "Please take your image", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+                focusView = btn_person_image;
+                cancel = true;
+            } else if (TextUtils.isEmpty(base64cnicfrontImage)){
+                Toast toast = Toast.makeText(getActivity(), "Please take the picture of your CNIC front side", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+                focusView = btn_cnic_front;
+                cancel = true;
+            } else if (TextUtils.isEmpty(base64cnicbackImage)){
+                Toast toast = Toast.makeText(getActivity(), "Please take the picture of your CNIC back side", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+                focusView = btn_cnic_back;
+                cancel = true;
             }
             if (cancel) {
 
@@ -466,5 +616,89 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    private void explain(String msg) {
+        final android.support.v7.app.AlertDialog.Builder dialog = new android.support.v7.app.AlertDialog.Builder(getActivity());
+        dialog.setMessage(msg)
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+
+                        Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:jsbankagent.management.application"));
+                        startActivityForResult(intent, CAMERA_REQUEST);
+                    }
+                });
+        dialog.show();
+    }
+
+    private Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        newaccountpicturePath = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(newaccountpicturePath);
+    }
+
+    private String CompressImage(Context context, Bitmap bitmap) {
+        String picturePath = "";
+        try {
+            selectedImage = getImageUri(context, bitmap);
+            if (selectedImage != null) {
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                picturePath = cursor.getString(columnIndex);
+                cursor.close();
+
+                Bitmap bm = bitmap;
+
+                int origWidth = bm.getWidth();
+                int origHeight = bm.getHeight();
+                final int destWidth = 150;//or the width you need
+                if (origWidth > destWidth) {
+                    // picture is wider thanwe want it, we calculate its target height
+                    int destHeight = origHeight / (origWidth / destWidth);
+                    // we create an scaled bitmap so it reduces the image, not just trim it
+                    Bitmap b2 = Bitmap.createScaledBitmap(bm, destWidth, destHeight, false);
+                    Log.e("BitMap", ":" + bm);
+                    File file = new File(picturePath);
+                    FileOutputStream fOut;
+                    try {
+                        fOut = new FileOutputStream(file);
+                        b2.compress(Bitmap.CompressFormat.PNG, 0, fOut);
+                        fOut.flush();
+                        fOut.close();
+                        b2.recycle();
+                        b2.recycle();
+                        picturePath = file.getAbsolutePath();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                Log.e("Selected Image", ":" + selectedImage);
+            } else {
+                Toast.makeText(getActivity(), "Application is not working properly on your device, please contact to JS Bank Headquarter ", Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return picturePath;
+    }
+
+    private String changeImageToBase64(String imagePath){
+        String base64 = "";
+
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        Bitmap bitmapnew = BitmapFactory.decodeFile(imagePath);
+
+        bitmapnew.compress(Bitmap.CompressFormat.PNG, 0, bao);
+        byte[] ba = bao.toByteArray();
+        Log.e("ByteArray", ":" + ba);
+        base64 = Base64.encodeToString(ba, Base64.DEFAULT);
+        Log.e("base64", "-----" + imagePath);
+
+        return base64;
     }
 }

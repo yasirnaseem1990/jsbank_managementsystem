@@ -31,6 +31,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amitshekhar.DebugDB;
 import com.crashlytics.android.Crashlytics;
 import com.squareup.picasso.Picasso;
 
@@ -46,6 +47,7 @@ import jsbankagent.management.application.fragments.AddAgentFragment;
 import jsbankagent.management.application.fragments.ArchiveFragment;
 import jsbankagent.management.application.fragments.PendingUploadsFragment;
 import jsbankagent.management.application.fragments.PersonalInformationFrament;
+import jsbankagent.management.application.fragments.PreAccountInfoFragment;
 import jsbankagent.management.application.utils.AppConstants;
 import jsbankagent.management.application.utils.DataHandler;
 
@@ -90,7 +92,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         tv_personName = headerView.findViewById(R.id.textview_name);
         tv_personDesignation = headerView.findViewById(R.id.textview_designation);
         navigationView.setNavigationItemSelectedListener(this);
-
+        String db = DebugDB.getAddressLog();
+        Log.e("db",db);
         btn_addAgent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,7 +149,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 try{
-                    fragment = new PersonalInformationFrament();
+                    fragment = new PreAccountInfoFragment();
                     fragmentManager = getSupportFragmentManager();
                     fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.frame_container, fragment);
@@ -191,7 +194,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             // Handle the camera action
         } else if (id == R.id.nav_new_registration){
 
-            fragment = new PersonalInformationFrament();
+            fragment = new PreAccountInfoFragment();
             fragmentManager = getSupportFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frame_container, fragment);

@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import jsbankagent.management.application.R;
 import jsbankagent.management.application.utils.AppConstants;
@@ -42,10 +43,13 @@ public class AccountInformationFragment extends Fragment implements AdapterView.
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     Button btn_next_step2;
-    private String typeofcurrentAccount,typeofAccount,currency,countryresidentialStatus,operatingInstructions,chequebookRequired,yeschequebookRequired,
+        private String typeofcurrentAccount,typeofAccount,currency,countryresidentialStatus,operatingInstructions,chequebookRequired,yeschequebookRequired,
             zakatApplicable;
     EditText et_accountinfo_accountTitle;
     private String accountinfo_accountTitle;
+    String getPreAccountInfo = "";
+    JSONObject jsonObject = null;
+    private String jointAccountNeed = "";
 
     public AccountInformationFragment() {
         // Required empty public constructor
@@ -83,28 +87,71 @@ public class AccountInformationFragment extends Fragment implements AdapterView.
                 }
             }
         });
+        getPreAccountInfo = DataHandler.getStringPreferences(AppConstants.PREFERENCE_PRE_ACCOUNT_INFO);
+        Log.e("getPreAccountInfo",getPreAccountInfo);
+        try {
+            jsonObject = new JSONObject(getPreAccountInfo);
+            if (jsonObject !=null){
+                jointAccountNeed = jsonObject.getString("pre_joint_account_need");
+                Log.e("jointAccountNeed",jointAccountNeed);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         btn_next_step2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
                     if (!checkFields()) {
-                        AppConstants.registrationObject.put("account_info_name", et_accountinfo_accountTitle.getText().toString().trim());
-                        AppConstants.registrationObject.put("account_info_type_current_account", typeofcurrentAccount);
-                        AppConstants.registrationObject.put("account_info_typ_account", typeofAccount);
-                        AppConstants.registrationObject.put("account_info_currency", currency);
-                        AppConstants.registrationObject.put("account_info_country_residential_status", countryresidentialStatus);
-                        AppConstants.registrationObject.put("account_info_operating_instructions", operatingInstructions);
-                        AppConstants.registrationObject.put("account_info_chequebook_required", chequebookRequired);
-                        AppConstants.registrationObject.put("account_info_no_chequebook_required", yeschequebookRequired);
-                        AppConstants.registrationObject.put("account_info_zakat_applicable", zakatApplicable);
 
-                        fragment = new PersonalInformationJointFragment();
-                        fragmentManager = getActivity().getSupportFragmentManager();
-                        fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.frame_container, fragment);
+                        //TODO Check jsonObject Is null or not with PreAccount Information
+                        if (jointAccountNeed.equalsIgnoreCase("No")){
+
+
+                            AppConstants.registrationObject.put("personal_info_joint_name", "N/A");
+                            AppConstants.registrationObject.put("personal_info_nara_joint_number", "0");
+                            AppConstants.registrationObject.put("personal_info_nara_expiry_joint_number", "0");
+                            AppConstants.registrationObject.put("personal_info_joint_dob", "N/A");
+                            AppConstants.registrationObject.put("personal_info_joint_gender", "N/A");
+                            AppConstants.registrationObject.put("personal_info_joint_expiry_date_visa", "N/A");
+                            AppConstants.registrationObject.put("personal_info_joint_father_name", "N/A");
+                            AppConstants.registrationObject.put("personal_info_joint_us_citizen", "N/A");
+                            AppConstants.registrationObject.put("personal_info_joint_nationality", "N/A");
+                            AppConstants.registrationObject.put("personal_info_joint_ntn_number", "0");
+                            AppConstants.registrationObject.put("personal_info_joint_place_of_birth", "N/A");
+                            AppConstants.registrationObject.put("personal_info_joint_marital_status", "N/A");
+                            AppConstants.registrationObject.put("personal_info_joint_qualification", "N/A");
+                            AppConstants.registrationObject.put("personal_info_joint_professtion", "N/A");
+                            AppConstants.registrationObject.put("personal_info_joint_employer_name", "N/A");
+                            AppConstants.registrationObject.put("personal_info_joint_nature_of_business", "N/A");
+                            AppConstants.registrationObject.put("personal_info_joint_designation", "N/A");
+                            AppConstants.registrationObject.put("personal_info_joint_residential_area", "N/A");
+                            AppConstants.registrationObject.put("personal_info_joint_business_address", "N/A");
+                            AppConstants.registrationObject.put("personal_info_joint_office_contact_number", "0");
+                            AppConstants.registrationObject.put("personal_info_joint_residential_contact_number", "0");
+                            AppConstants.registrationObject.put("personal_info_joint_cell_number", "0");
+
+                            Toast.makeText(getActivity(), "Sorry I don't need Joint Account", Toast.LENGTH_SHORT).show();
+                        }else{
+
+                            AppConstants.registrationObject.put("account_info_name", et_accountinfo_accountTitle.getText().toString().trim());
+                            AppConstants.registrationObject.put("account_info_type_current_account", typeofcurrentAccount);
+                            AppConstants.registrationObject.put("account_info_typ_account", typeofAccount);
+                            AppConstants.registrationObject.put("account_info_currency", currency);
+                            AppConstants.registrationObject.put("account_info_country_residential_status", countryresidentialStatus);
+                            AppConstants.registrationObject.put("account_info_operating_instructions", operatingInstructions);
+                            AppConstants.registrationObject.put("account_info_chequebook_required", chequebookRequired);
+                            AppConstants.registrationObject.put("account_info_no_chequebook_required", yeschequebookRequired);
+                            AppConstants.registrationObject.put("account_info_zakat_applicable", zakatApplicable);
+
+                            fragment = new PersonalInformationJointFragment();
+                            fragmentManager = getActivity().getSupportFragmentManager();
+                            fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.frame_container, fragment);
+                            fragmentTransaction.commit();
+                        }
                         DataHandler.updatePreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION,AppConstants.registrationObject.toString());
                     }
-                    fragmentTransaction.commit();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

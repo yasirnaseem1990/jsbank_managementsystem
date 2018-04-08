@@ -160,8 +160,6 @@ public class AddAgentFragment extends Fragment implements PendingUploadsAsyncRes
                         agentProvince.setText(provinceName);
                         provinceId = addAgent.getProvinceId(provinceName);
                     }
-               /* agentCity.setFocusableInTouchMode(true);
-                agentCity.requestFocus();*/
                     Toast.makeText(getActivity(), cityName, Toast.LENGTH_SHORT).show();
                 }
             });
@@ -393,13 +391,6 @@ public class AddAgentFragment extends Fragment implements PendingUploadsAsyncRes
                 mParams.add(new BasicNameValuePair("image", ba1));
                 mParams.add(new BasicNameValuePair("user_id", userId));
                 Log.e("PARAMS>", "" + mParams);
-                /*et_agentId.setText("");
-                agentName.setText("");
-                agentAddress.setText("");
-                agentCity.setText("");
-                agentProvince.setText("");
-                et_comments.setText("");
-                imageView.setImageDrawable(null);*/
                 pendingformFalag = false;
                 AddAgentAsyncTask addAgentAsyncTask = new AddAgentAsyncTask(getActivity(), WebServiceConstants.END_POINT_ADD_AGENT, mParams);
                 addAgentAsyncTask.execute();

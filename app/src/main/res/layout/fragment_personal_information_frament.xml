@@ -89,21 +89,21 @@
                 android:weightSum="3">
 
                 <ImageView
-                    android:id="@+id/button1"
+                    android:id="@+id/btn_person_image"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:src="@drawable/camera_icon"
                     android:layout_weight="1" />
 
                 <ImageView
-                    android:id="@+id/button2"
+                    android:id="@+id/btn_cnic_front"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:src="@drawable/cnic_front_icon"
                     android:layout_weight="1" />
 
                 <ImageView
-                    android:id="@+id/button3"
+                    android:id="@+id/btn_cnic_back"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:src="@drawable/cnic_icon"

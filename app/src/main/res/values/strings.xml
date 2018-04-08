@@ -126,4 +126,10 @@
     <string name="e_banking_e_statement">E-Statement</string>
     <string name="e_banking_frequency">Frequency</string>
     <string name="btn_text_save">SAVE</string>
+    <string name="txt_applicant_pre_account_info">Pre Account Information</string>
+    <string name="txt_joint_account_need">Do You Need Joint Account</string>
+    <string name="txt_debit_card_need">Do You Need Debit Card</string>
+    <string name="txt_supplementary_card_need">Supplementary Card</string>
+    <string name="txt_e_banking_need">Do You Need E-Banking</string>
+    <string name="tv_relationship">Relationship</string>
 </resources>

@@ -1,6 +1,7 @@
 package jsbankagent.management.application.fragments;
 
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,11 +26,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
 import jsbankagent.management.application.R;
+import jsbankagent.management.application.utils.AppConstants;
+import jsbankagent.management.application.utils.DataHandler;
 
 import static jsbankagent.management.application.HomeActivity.drawer;
 
@@ -50,11 +56,14 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
     private DatePickerDialog expirydateofVisaPickerDialog;
     public String expirydateofvisa;
     public String dateofbirth;
-    EditText et_supplementarycardDOB,et_supplementary_card_full_name,et_supplementary_card_cnic_number,et_supplementarycardvisaexpiryDate,
+    EditText et_supplementarycardDOB,et_supplementary_card_full_name,et_supplementary_card_relationship,et_supplementary_card_cnic_number,et_supplementarycardvisaexpiryDate,
             et_supplementary_card_mother_name,et_supplementary_card_name_supplementary;
     String supplementarycardDOB,supplementary_card_full_name,supplementary_card_cnic_number,supplementarycardvisaexpiryDate,supplementary_card_mother_name,
             supplementary_card_name_supplementary;
     private SimpleDateFormat dateFormatter;
+    private String getPreAccountInfo = "";
+    private String ebankingNeed = "";
+    private JSONObject jsonObject = null;
     public SupplementaryCardFragment() {
         // Required empty public constructor
     }
@@ -74,6 +83,7 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
 
         spinnerrequestsupplementaryCard = supplementarycardFragment.findViewById(R.id.spinner_supplementary_card_request);
         et_supplementary_card_full_name = (EditText) supplementarycardFragment.findViewById(R.id.et_supplementary_card_full_name);
+        et_supplementary_card_relationship = (EditText) supplementarycardFragment.findViewById(R.id.et_supplementary_card_relationship);
         et_supplementary_card_cnic_number = (EditText) supplementarycardFragment.findViewById(R.id.et_supplementary_card_cnic_number);
         et_supplementary_card_mother_name = (EditText) supplementarycardFragment.findViewById(R.id.et_supplementary_card_mother_name);
         et_supplementary_card_name_supplementary = (EditText) supplementarycardFragment.findViewById(R.id.et_supplementary_card_name_supplementary);
@@ -87,6 +97,18 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
         btn_next_step7 = supplementarycardFragment.findViewById(R.id.btn_next_step_7);
         iv_menu = supplementarycardFragment.findViewById(R.id.imageviewMenu);
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+
+        getPreAccountInfo = DataHandler.getStringPreferences(AppConstants.PREFERENCE_PRE_ACCOUNT_INFO);
+        Log.e("getPreAccountInfo",getPreAccountInfo);
+        try {
+            jsonObject = new JSONObject(getPreAccountInfo);
+            if (jsonObject != null){
+                ebankingNeed= jsonObject.getString("pre_ebanking_need");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         iv_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,13 +128,42 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
             public void onClick(View v) {
                 try{
                     if (!checkFields()){
-                    fragment = new EBankingFragment();
-                    fragmentManager = getActivity().getSupportFragmentManager();
-                    fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.frame_container, fragment);
-                    fragmentTransaction.commit();
+
+                        if (ebankingNeed.equalsIgnoreCase("No")){
+
+                            AppConstants.registrationObject.put("e_banking_sms_alerts", "N/A");
+                            AppConstants.registrationObject.put("e_banking_internet_banking", "N/A");
+                            AppConstants.registrationObject.put("e_banking_mobile_banking", "N/A");
+                            AppConstants.registrationObject.put("e_banking_e_statement", "N/A");
+                            AppConstants.registrationObject.put("e_banking_frequency", "N/A");
+
+                            Toast.makeText(getActivity(), "Sorry i don't need E-Banking ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Form Saved", Toast.LENGTH_SHORT).show();
+                        }else {
+
+                            AppConstants.registrationObject.put("supplementary_card_request", requestsupplementaryCard);
+                            AppConstants.registrationObject.put("supplementary_card_full_name", et_supplementary_card_full_name.getText().toString().trim());
+                            AppConstants.registrationObject.put("supplementary_card_dobs", et_supplementarycardDOB.getText().toString().trim());
+                            AppConstants.registrationObject.put("supplementary_card_relationship", et_supplementary_card_relationship.getText().toString().trim());
+                            AppConstants.registrationObject.put("supplementary_card_cnic_number", et_supplementary_card_cnic_number.getText().toString().trim());
+                            AppConstants.registrationObject.put("supplementary_card_visa_expiry_date", et_supplementarycardvisaexpiryDate.getText().toString().trim());
+                            AppConstants.registrationObject.put("supplementary_card_mother_name", et_supplementary_card_mother_name.getText().toString().trim());
+                            AppConstants.registrationObject.put("supplementary_card_name_on_supplementary_card", et_supplementary_card_name_supplementary.getText().toString().trim());
+
+
+                            fragment = new EBankingFragment();
+                            fragmentManager = getActivity().getSupportFragmentManager();
+                            fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.frame_container, fragment);
+                            fragmentTransaction.commit();
+                        }
+                        DataHandler.updatePreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION, AppConstants.registrationObject.toString());
+
+
                     }
                 }catch (NullPointerException e){
+                    e.printStackTrace();
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }

@@ -12,6 +12,7 @@ public class WebServiceConstants {
     public final static String END_POINT_LOGIN  ="/Login";
     public final static String END_POINT_ADD_AGENT = "/addagents";
     public final static String END_POINT_CITY_LISTT = "provincecity";
-    public final static String END_POINT_REUPDATE_PHONE_NUMBER ="register/update/phonenumber";
+    public final static String END_POINT_NEW_REGISTRATION ="/newregistration";
+    public final static String END_POINT_IMAGES = "/";
     /*public static final String END_POINT_CITY_LISTT = "http://jsbank.appinsnap.com/api/JsbCash/provincecity";*/
 }

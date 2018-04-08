@@ -199,21 +199,21 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
                         } else {
                             Log.e(TAG, "Permission are not granted");
-                            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA )) {
-                                showDialogOK("We Need Camera Permission for Taking the Picture", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        switch (i) {
-                                            case DialogInterface.BUTTON_POSITIVE:
-                                                checkAndRequestPermissions();
-                                                break;
-//                                        case DialogInterface.BUTTON_NEGATIVE:
-//                                            finish();
-//                                            break;
+                                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA )) {
+                                    showDialogOK("We Need Camera Permission for Taking the Picture", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            switch (i) {
+                                                case DialogInterface.BUTTON_POSITIVE:
+                                                    checkAndRequestPermissions();
+                                                    break;
+    //                                        case DialogInterface.BUTTON_NEGATIVE:
+    //                                            finish();
+    //                                            break;
+                                            }
                                         }
-                                    }
-                                });
-                            }else if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                                    });
+                                }else if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
                                 showDialogOK("We Need Location Permission for getting Latitude and Longitude through GPS", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {

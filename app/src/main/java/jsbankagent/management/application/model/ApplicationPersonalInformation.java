@@ -117,6 +117,8 @@ public class ApplicationPersonalInformation {
     private String applicantchequebookRequired;
     private String applicantnoofchequebokRequired;
     private String applicantzakatApplicable;
+    
+
 
 
     public String getCourtesyTitle() {

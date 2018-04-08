@@ -125,8 +125,7 @@ public class BaseAsyncTask extends AsyncTask<List<NameValuePair>,Void,String> {
             urlConnection.setConnectTimeout(15000);
            if (mParams!=null){
                OutputStream os = urlConnection.getOutputStream();
-               BufferedWriter writer = new BufferedWriter(
-                       new OutputStreamWriter(os, "UTF-8"));
+               BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
                writer.write(getQuery(mParams));
                writer.flush();
                writer.close();
