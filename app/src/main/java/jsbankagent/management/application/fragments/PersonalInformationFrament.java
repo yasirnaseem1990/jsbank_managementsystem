@@ -43,6 +43,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -50,9 +51,11 @@ import java.util.Locale;
 import jsbankagent.management.application.R;
 import jsbankagent.management.application.utils.AppConstants;
 import jsbankagent.management.application.utils.DataHandler;
+import jsbankagent.management.application.utils.PickerDialogs;
 
 import static android.app.Activity.RESULT_OK;
 import static jsbankagent.management.application.HomeActivity.drawer;
+import static jsbankagent.management.application.utils.AppUtils.britishFormateNew;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -132,6 +135,14 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
         et_personal_info_telenor_golden_no = (EditText) personalinformatinoFragment.findViewById(R.id.et_telenor_golden_number);
         et_personal_info_email = (EditText) personalinformatinoFragment.findViewById(R.id.et_email_address);
 
+
+        dateofBirth = personalinformatinoFragment.findViewById(R.id.et_dateofbirth);
+        dateofBirth.setInputType(InputType.TYPE_NULL);
+        dateofBirth.requestFocus();
+
+        expirydateofVisa = personalinformatinoFragment.findViewById(R.id.et_expiry_date_visa);
+        expirydateofVisa.setInputType(InputType.TYPE_NULL);
+
         //Intiliaze the Button
         btn_person_image = (ImageView) personalinformatinoFragment.findViewById(R.id.btn_person_image);
         btn_cnic_front = (ImageView) personalinformatinoFragment.findViewById(R.id.btn_cnic_front);
@@ -202,8 +213,6 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
         maritalstatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerusCitizen.setAdapter(uscitizenAdapter);
 
-        findViewsById();
-
         setDateTimeField();
 
 
@@ -248,6 +257,7 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
                         fragmentManager = getActivity().getSupportFragmentManager();
                         fragmentTransaction = fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.frame_container, fragment);
+                        fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                         DataHandler.updatePreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION, AppConstants.registrationObject.toString());
                     }
@@ -284,8 +294,8 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
                         Bitmap bitmap = (Bitmap) data.getExtras().get("data");
                         btn_person_image.setImageBitmap(bitmap);
                         //TODO Calling the CompressFunction which will compress the image and then return the Picture Path
-                        String personimagePath  = CompressImage(getActivity(), bitmap);
-                        base64personImage  = changeImageToBase64(personimagePath);
+                        String personimagePath = CompressImage(getActivity(), bitmap);
+                        base64personImage = changeImageToBase64(personimagePath);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -321,18 +331,10 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
         }
     }
 
-    private void findViewsById() {
-        dateofBirth = (EditText) personalinformatinoFragment.findViewById(R.id.et_dateofbirth);
-        dateofBirth.setInputType(InputType.TYPE_NULL);
-        dateofBirth.requestFocus();
-
-        expirydateofVisa = (EditText) personalinformatinoFragment.findViewById(R.id.et_expiry_date_visa);
-        expirydateofVisa.setInputType(InputType.TYPE_NULL);
-    }
-
     private void setDateTimeField() {
         dateofBirth.setOnClickListener(this);
         expirydateofVisa.setOnClickListener(this);
+
 
         Calendar newCalendar = Calendar.getInstance();
         dateofbirthDatePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
@@ -340,7 +342,13 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
-                dateofBirth.setText(dateFormatter.format(newDate.getTime()));
+
+                dateofbirth = dateFormatter.format(newDate.getTime());
+
+                SimpleDateFormat newFormat = new SimpleDateFormat(britishFormateNew);
+                dateofbirth = newFormat.format(newDate.getTime());
+
+                dateofBirth.setText(dateofbirth);
                 dateofbirth = dateofBirth.getText().toString();
                 Log.e("dateofbirth", dateofbirth);
             }
@@ -582,19 +590,19 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
                 et_personal_info_email.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_email;
                 cancel = true;
-            } else if (TextUtils.isEmpty(base64personImage)){
+            } else if (TextUtils.isEmpty(base64personImage)) {
                 Toast toast = Toast.makeText(getActivity(), "Please take your image", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                 toast.show();
                 focusView = btn_person_image;
                 cancel = true;
-            } else if (TextUtils.isEmpty(base64cnicfrontImage)){
+            } else if (TextUtils.isEmpty(base64cnicfrontImage)) {
                 Toast toast = Toast.makeText(getActivity(), "Please take the picture of your CNIC front side", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                 toast.show();
                 focusView = btn_cnic_front;
                 cancel = true;
-            } else if (TextUtils.isEmpty(base64cnicbackImage)){
+            } else if (TextUtils.isEmpty(base64cnicbackImage)) {
                 Toast toast = Toast.makeText(getActivity(), "Please take the picture of your CNIC back side", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                 toast.show();
@@ -687,7 +695,7 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
         return picturePath;
     }
 
-    private String changeImageToBase64(String imagePath){
+    private String changeImageToBase64(String imagePath) {
         String base64 = "";
 
         ByteArrayOutputStream bao = new ByteArrayOutputStream();

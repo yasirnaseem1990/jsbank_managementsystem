@@ -136,6 +136,7 @@ public class BusinessAccountInformationFragment extends Fragment implements View
                             fragmentManager = getActivity().getSupportFragmentManager();
                             fragmentTransaction = fragmentManager.beginTransaction();
                             fragmentTransaction.replace(R.id.frame_container, fragment);
+                            fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
                         }
                         DataHandler.updatePreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION, AppConstants.registrationObject.toString());

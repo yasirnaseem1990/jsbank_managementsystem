@@ -17,6 +17,7 @@ import static jsbankagent.management.application.LoginActivity.mAppcontext;
 public class AppUtils {
 
     public static Boolean gpsenabled = false;
+    public static String britishFormateNew = "yyyy-MM-dd";
     public static boolean emailValidator(String email)
     {
         Pattern pattern;

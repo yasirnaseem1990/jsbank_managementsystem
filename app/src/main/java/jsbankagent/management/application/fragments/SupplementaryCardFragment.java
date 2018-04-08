@@ -42,28 +42,28 @@ import static jsbankagent.management.application.HomeActivity.drawer;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SupplementaryCardFragment extends Fragment implements View.OnClickListener,AdapterView.OnItemSelectedListener{
+public class SupplementaryCardFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     View supplementarycardFragment;
     Button btn_next_step7;
     Fragment fragment;
     ImageView iv_menu;
-    FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
+
     Spinner spinnerrequestsupplementaryCard;
     String requestsupplementaryCard;
     private DatePickerDialog dateofbirthDatePickerDialog;
     private DatePickerDialog expirydateofVisaPickerDialog;
     public String expirydateofvisa;
     public String dateofbirth;
-    EditText et_supplementarycardDOB,et_supplementary_card_full_name,et_supplementary_card_relationship,et_supplementary_card_cnic_number,et_supplementarycardvisaexpiryDate,
-            et_supplementary_card_mother_name,et_supplementary_card_name_supplementary;
-    String supplementarycardDOB,supplementary_card_full_name,supplementary_card_cnic_number,supplementarycardvisaexpiryDate,supplementary_card_mother_name,
+    EditText et_supplementarycardDOB, et_supplementary_card_full_name, et_supplementary_card_relationship, et_supplementary_card_cnic_number, et_supplementarycardvisaexpiryDate,
+            et_supplementary_card_mother_name, et_supplementary_card_name_supplementary;
+    String supplementarycardDOB, supplementary_card_full_name, supplementary_card_cnic_number, supplementarycardvisaexpiryDate, supplementary_card_mother_name,
             supplementary_card_name_supplementary;
     private SimpleDateFormat dateFormatter;
     private String getPreAccountInfo = "";
     private String ebankingNeed = "";
     private JSONObject jsonObject = null;
+
     public SupplementaryCardFragment() {
         // Required empty public constructor
     }
@@ -99,11 +99,11 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
 
         getPreAccountInfo = DataHandler.getStringPreferences(AppConstants.PREFERENCE_PRE_ACCOUNT_INFO);
-        Log.e("getPreAccountInfo",getPreAccountInfo);
+        Log.e("getPreAccountInfo", getPreAccountInfo);
         try {
             jsonObject = new JSONObject(getPreAccountInfo);
-            if (jsonObject != null){
-                ebankingNeed= jsonObject.getString("pre_ebanking_need");
+            if (jsonObject != null) {
+                ebankingNeed = jsonObject.getString("pre_ebanking_need");
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -126,10 +126,10 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
         btn_next_step7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try{
-                    if (!checkFields()){
+                try {
+                    if (!checkFields()) {
 
-                        if (ebankingNeed.equalsIgnoreCase("No")){
+                        if (ebankingNeed.equalsIgnoreCase("No")) {
 
                             AppConstants.registrationObject.put("e_banking_sms_alerts", "N/A");
                             AppConstants.registrationObject.put("e_banking_internet_banking", "N/A");
@@ -139,7 +139,7 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
 
                             Toast.makeText(getActivity(), "Sorry i don't need E-Banking ", Toast.LENGTH_SHORT).show();
                             Toast.makeText(getActivity(), "Form Saved", Toast.LENGTH_SHORT).show();
-                        }else {
+                        } else {
 
                             AppConstants.registrationObject.put("supplementary_card_request", requestsupplementaryCard);
                             AppConstants.registrationObject.put("supplementary_card_full_name", et_supplementary_card_full_name.getText().toString().trim());
@@ -150,18 +150,23 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
                             AppConstants.registrationObject.put("supplementary_card_mother_name", et_supplementary_card_mother_name.getText().toString().trim());
                             AppConstants.registrationObject.put("supplementary_card_name_on_supplementary_card", et_supplementary_card_name_supplementary.getText().toString().trim());
 
+                            try {
+                                Fragment fragment = new EBankingFragment();
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.frame_container, fragment);
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
 
-                            fragment = new EBankingFragment();
-                            fragmentManager = getActivity().getSupportFragmentManager();
-                            fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.frame_container, fragment);
-                            fragmentTransaction.commit();
                         }
                         DataHandler.updatePreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION, AppConstants.registrationObject.toString());
 
 
                     }
-                }catch (NullPointerException e){
+                } catch (NullPointerException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -169,13 +174,13 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
             }
         });
 
-        try{
+        try {
             //Request for supplementary card Spinner
             ArrayAdapter<CharSequence> requestsupplementaryAdapter = ArrayAdapter.createFromResource(getActivity(),
-                    R.array.listsupplementaryCard,android.R.layout.simple_spinner_item);
+                    R.array.listsupplementaryCard, android.R.layout.simple_spinner_item);
             requestsupplementaryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerrequestsupplementaryCard.setAdapter(requestsupplementaryAdapter);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -197,10 +202,10 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
 
                 et_supplementarycardDOB.setText(dateFormatter.format(newDate.getTime()));
                 dateofbirth = et_supplementarycardDOB.getText().toString();
-                Log.e("dateofbirth",dateofbirth);
+                Log.e("dateofbirth", dateofbirth);
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
         expirydateofVisaPickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
 
@@ -209,18 +214,18 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
                 newDate.set(year, monthOfYear, dayOfMonth);
                 et_supplementarycardvisaexpiryDate.setText(dateFormatter.format(newDate.getTime()));
                 expirydateofvisa = et_supplementarycardvisaexpiryDate.getText().toString();
-                Log.e("expirydateofvisa",expirydateofvisa);
+                Log.e("expirydateofvisa", expirydateofvisa);
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
     }
 
 
     @Override
     public void onClick(View v) {
-        if(v == et_supplementarycardDOB){
+        if (v == et_supplementarycardDOB) {
             dateofbirthDatePickerDialog.show();
-        }else if (v == et_supplementarycardvisaexpiryDate){
+        } else if (v == et_supplementarycardvisaexpiryDate) {
 
             expirydateofVisaPickerDialog.show();
         }
@@ -250,7 +255,7 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
 
         try {
             if (TextUtils.isEmpty(requestsupplementaryCard)) {
-                Toast toast =Toast.makeText(getActivity(), "Please select courtesy title", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getActivity(), "Please select courtesy title", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                 toast.show();
                 focusView = spinnerrequestsupplementaryCard;
@@ -276,7 +281,7 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
                 et_supplementary_card_mother_name.setError(getString(R.string.error_field_required));
                 focusView = et_supplementary_card_mother_name;
                 cancel = true;
-            }else if (TextUtils.isEmpty(supplementary_card_name_supplementary)) {
+            } else if (TextUtils.isEmpty(supplementary_card_name_supplementary)) {
                 et_supplementary_card_name_supplementary.setError(getString(R.string.error_field_required));
                 focusView = et_supplementary_card_name_supplementary;
                 cancel = true;
@@ -296,24 +301,24 @@ public class SupplementaryCardFragment extends Fragment implements View.OnClickL
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         TextView tv = (TextView) view;
-        try{
+        try {
             if (position == 0) {
                 tv.setTextColor(Color.GRAY);
             } else {
                 tv.setTextColor(Color.BLACK);
             }
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        try{
-            if (position > 0){
-                switch (parent.getId()){
+        try {
+            if (position > 0) {
+                switch (parent.getId()) {
                     case R.id.spinner_supplementary_card_request:
                         requestsupplementaryCard = parent.getSelectedItem().toString();
                         break;
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

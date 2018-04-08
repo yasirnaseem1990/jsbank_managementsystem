@@ -102,6 +102,13 @@ public class EBankingFragment extends Fragment implements AdapterView.OnItemSele
 
                         DataHandler.updatePreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION, AppConstants.registrationObject.toString());
 
+
+                        //TODO Retreaving the New Account Object values
+                        String insertNewAccount = DataHandler.getStringPreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION);
+                        Log.e("jsonObjNewAccount :", insertNewAccount);
+                        if (insertNewAccount != null && !insertNewAccount.isEmpty()) {
+
+                            jsonObject = new JSONObject(insertNewAccount);
                         //TODO Create Database class object and open database objece for insert the values
                         AddAgent addNewAccount = new AddAgent(getActivity());
                         addNewAccount.open();
@@ -201,6 +208,7 @@ public class EBankingFragment extends Fragment implements AdapterView.OnItemSele
 
                         //TODO insert the value
                         addNewAccount.insertNewAccount(information);
+                    }
 
                         //TODO Retreaving the New Account Object values
                         String jsonObjNewAccount = DataHandler.getStringPreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION);
