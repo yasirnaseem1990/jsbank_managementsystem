@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,8 @@ public class AccountInformationFragment extends Fragment implements AdapterView.
             spinneroperatingInstructions,spinnerchequebookRequired,spinneryeschequebookRequired,spinnerzakatApplicable;
     ImageView iv_menu;
     Fragment fragment;
+    TextView tv_yes_cheque_book_required;
+    RelativeLayout yes_cheque_book_required_layout;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     Button btn_next_step2;
@@ -72,6 +75,8 @@ public class AccountInformationFragment extends Fragment implements AdapterView.
         spinneryeschequebookRequired = accountinformationFragment.findViewById(R.id.spinner_yes_cheque_book_required);
         spinnerzakatApplicable = accountinformationFragment.findViewById(R.id.spinner_zakat_applicable);
         btn_next_step2 = accountinformationFragment.findViewById(R.id.btn_next_step_2);
+        tv_yes_cheque_book_required = accountinformationFragment.findViewById(R.id.tv_yes_cheque_book_required);
+        yes_cheque_book_required_layout = accountinformationFragment.findViewById(R.id.yes_cheque_book_required_layout);
         et_accountinfo_accountTitle = accountinformationFragment.findViewById(R.id.et_accountTitle);
         iv_menu = accountinformationFragment.findViewById(R.id.imageviewMenu);
         iv_menu.setOnClickListener(new View.OnClickListener() {
@@ -104,9 +109,19 @@ public class AccountInformationFragment extends Fragment implements AdapterView.
                 try {
                     if (!checkFields()) {
 
+                            AppConstants.registrationObject.put("account_info_name", et_accountinfo_accountTitle.getText().toString().trim());
+                            AppConstants.registrationObject.put("account_info_type_current_account", typeofcurrentAccount);
+                            AppConstants.registrationObject.put("account_info_typ_account", typeofAccount);
+                            AppConstants.registrationObject.put("account_info_currency", currency);
+                            AppConstants.registrationObject.put("account_info_country_residential_status", countryresidentialStatus);
+                            AppConstants.registrationObject.put("account_info_operating_instructions", operatingInstructions);
+                            AppConstants.registrationObject.put("account_info_chequebook_required", chequebookRequired);
+                            AppConstants.registrationObject.put("account_info_no_chequebook_required", yeschequebookRequired);
+                            AppConstants.registrationObject.put("account_info_zakat_applicable", zakatApplicable);
+
+
                         //TODO Check jsonObject Is null or not with PreAccount Information
                         if (jointAccountNeed.equalsIgnoreCase("No")){
-
 
                             AppConstants.registrationObject.put("personal_info_joint_name", "N/A");
                             AppConstants.registrationObject.put("personal_info_nara_joint_number", "0");
@@ -131,27 +146,26 @@ public class AccountInformationFragment extends Fragment implements AdapterView.
                             AppConstants.registrationObject.put("personal_info_joint_residential_contact_number", "0");
                             AppConstants.registrationObject.put("personal_info_joint_cell_number", "0");
 
-                            Toast.makeText(getActivity(), "Sorry I don't need Joint Account", Toast.LENGTH_SHORT).show();
-                        }else{
-
-                            AppConstants.registrationObject.put("account_info_name", et_accountinfo_accountTitle.getText().toString().trim());
-                            AppConstants.registrationObject.put("account_info_type_current_account", typeofcurrentAccount);
-                            AppConstants.registrationObject.put("account_info_typ_account", typeofAccount);
-                            AppConstants.registrationObject.put("account_info_currency", currency);
-                            AppConstants.registrationObject.put("account_info_country_residential_status", countryresidentialStatus);
-                            AppConstants.registrationObject.put("account_info_operating_instructions", operatingInstructions);
-                            AppConstants.registrationObject.put("account_info_chequebook_required", chequebookRequired);
-                            AppConstants.registrationObject.put("account_info_no_chequebook_required", yeschequebookRequired);
-                            AppConstants.registrationObject.put("account_info_zakat_applicable", zakatApplicable);
-
-                            fragment = new PersonalInformationJointFragment();
-                            fragmentManager = getActivity().getSupportFragmentManager();
-                            fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.frame_container, fragment);
-                            fragmentTransaction.addToBackStack(null);
-                            fragmentTransaction.commit();
+                            /*Toast.makeText(getActivity(), "Sorry I don't need Joint Account", Toast.LENGTH_SHORT).show();*/
                         }
-                        DataHandler.updatePreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION,AppConstants.registrationObject.toString());
+
+                            if (jointAccountNeed.equalsIgnoreCase("No")){
+                                fragment = new NextOfKinFragment();
+                                fragmentManager = getActivity().getSupportFragmentManager();
+                                fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.frame_container, fragment);
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+                            }
+                            else{
+                                fragment = new PersonalInformationJointFragment();
+                                fragmentManager = getActivity().getSupportFragmentManager();
+                                fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.frame_container, fragment);
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+                            }
+                            DataHandler.updatePreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION,AppConstants.registrationObject.toString());
                     }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -253,6 +267,16 @@ public class AccountInformationFragment extends Fragment implements AdapterView.
                         break;
                     case R.id.spinner_cheque_book_required:
                         chequebookRequired = parent.getSelectedItem().toString();
+                        if (chequebookRequired.equalsIgnoreCase("NO")){
+                            yes_cheque_book_required_layout.setVisibility(View.GONE);
+                            tv_yes_cheque_book_required.setVisibility(View.GONE);
+                            chequebookRequired = "N/A";
+                        }
+                        if (chequebookRequired.equalsIgnoreCase("YES")){
+                            yes_cheque_book_required_layout.setVisibility(View.VISIBLE);
+                            tv_yes_cheque_book_required.setVisibility(View.VISIBLE);
+                            chequebookRequired = parent.getSelectedItem().toString();
+                        }
                         break;
                     case R.id.spinner_yes_cheque_book_required:
                         yeschequebookRequired = parent.getSelectedItem().toString();

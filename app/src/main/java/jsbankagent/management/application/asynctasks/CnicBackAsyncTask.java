@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONObject;
 
 import java.util.List;
 
+import jsbankagent.management.application.HomeActivity;
 import jsbankagent.management.application.R;
 import jsbankagent.management.application.dialogs.ProgressBarDialog;
 
@@ -60,12 +63,10 @@ public class CnicBackAsyncTask extends BaseAsyncTask {
             switch (intResponse) {
                 case 200 :
                     try{
+                        Toast.makeText(context, "Data Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, HomeActivity.class);
+                        context.startActivity(intent);
 
-                        if(resultat !=null && !resultat.isEmpty()){
-                            JSONObject objnewAccount = new JSONObject(resultat);
-                            userId = objnewAccount.getString("UserId");
-                            
-                        }
                     }catch (Exception e){
                         e.printStackTrace();
                     }

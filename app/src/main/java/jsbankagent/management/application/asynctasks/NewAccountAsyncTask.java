@@ -32,6 +32,8 @@ public class NewAccountAsyncTask extends BaseAsyncTask {
     private JSONObject jsonObject = null;
     public  List<NameValuePair> mParams;
     Activity mActivity;
+    private String base64PersonImage = "";
+
     public NewAccountAsyncTask(Context context, String route, List<NameValuePair> pp) {
         super(context, route, pp);
 
@@ -72,17 +74,24 @@ public class NewAccountAsyncTask extends BaseAsyncTask {
                     try{
 
                         if(resultat !=null && !resultat.isEmpty()){
+
                             JSONObject objnewAccount = new JSONObject(resultat);
                             userId = objnewAccount.getString("id");
 
+                            DataHandler.updatePreferences(AppConstants.NEW_ACCOUNT_ID,userId);
                             String jsonObjNewAccount = DataHandler.getStringPreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION);
                             Log.e("jsonObjNewAccount :", jsonObjNewAccount);
                             if (jsonObjNewAccount != null && !jsonObjNewAccount.isEmpty()) {
 
+                                jsonObject = new JSONObject(jsonObjNewAccount);
+                                base64PersonImage = jsonObject.getString("person_image");
+                                Log.e("base64PersonImage",base64PersonImage);
                                 mParams = new ArrayList<NameValuePair>();
-                                mParams.add(new BasicNameValuePair("id ", userId));
-                                mParams.add(new BasicNameValuePair("account_images ", jsonObject.getString("person_image")));
+                                mParams.add(new BasicNameValuePair("id", userId));
+                                mParams.add(new BasicNameValuePair("account_images", jsonObject.getString("person_image")));
+                                mParams.add(new BasicNameValuePair("imageposition", "person_image"));
 
+                                Log.e("mParams",":"+mParams);
                                 PersonImageAsyncTask personImageAsyncTask = new PersonImageAsyncTask(context,WebServiceConstants.END_POINT_IMAGES,mParams);
                                 personImageAsyncTask.execute();
 
@@ -94,10 +103,10 @@ public class NewAccountAsyncTask extends BaseAsyncTask {
                         e.printStackTrace();
                     }
                     break;
-                case 403:
+                case 400:
                     try{
                         AlertDialog.Builder error_403 = new AlertDialog.Builder(context);
-                        error_403.setMessage(context.getResources().getString(R.string.error_login_403)).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        error_403.setMessage(context.getResources().getString(R.string.error_bad_request)).setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();

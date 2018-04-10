@@ -64,6 +64,7 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
     View personalinformatinoFragment;
     ImageView iv_menu;
     Button btnNext;
+    TextView tv_expiry_date_visa;
     ImageView btn_person_image, btn_cnic_front, btn_cnic_back;
     Spinner spinnercourtesyTitle, spinnerGender, spinnermaritalStatus, spinnerQaulification, spinnerProfession,
             spinnermailingAddress, spinnerusCitizen;
@@ -115,6 +116,7 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
         spinnermailingAddress = personalinformatinoFragment.findViewById(R.id.spinner_mailain_address);
         spinnerusCitizen = personalinformatinoFragment.findViewById(R.id.spinner_us_citizen);
 
+        tv_expiry_date_visa = personalinformatinoFragment.findViewById(R.id.tv_expiry_date_visa);
         et_personal_info_name = (EditText) personalinformatinoFragment.findViewById(R.id.et_name);
         et_personal_info_cnic = (EditText) personalinformatinoFragment.findViewById(R.id.et_cnic_passport);
         et_personal_info_expiry_cnic = (EditText) personalinformatinoFragment.findViewById(R.id.et_expiry_cnic_passport);
@@ -360,7 +362,9 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
-                expirydateofVisa.setText(dateFormatter.format(newDate.getTime()));
+                SimpleDateFormat newFormat = new SimpleDateFormat(britishFormateNew);
+                expirydateofvisa = newFormat.format(newDate.getTime());
+                expirydateofVisa.setText(expirydateofvisa);
                 expirydateofvisa = expirydateofVisa.getText().toString();
                 Log.e("expirydateofvisa", expirydateofvisa);
             }
@@ -457,6 +461,16 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
                         break;
                     case R.id.spinner_us_citizen:
                         usCitizen = parent.getSelectedItem().toString();
+                        if (usCitizen.equalsIgnoreCase("NO")){
+                            expirydateofVisa.setVisibility(View.GONE);
+                            tv_expiry_date_visa.setVisibility(View.GONE);
+                            usCitizen = "N/A";
+                        }
+                        if (usCitizen.equalsIgnoreCase("YES")){
+                            expirydateofVisa.setVisibility(View.VISIBLE);
+                            tv_expiry_date_visa.setVisibility(View.VISIBLE);
+                            usCitizen = parent.getSelectedItem().toString();
+                        }
                         break;
                 }
             }

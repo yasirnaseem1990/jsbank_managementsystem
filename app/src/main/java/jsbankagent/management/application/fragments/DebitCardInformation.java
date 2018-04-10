@@ -108,21 +108,32 @@ public class DebitCardInformation extends Fragment implements AdapterView.OnItem
                             AppConstants.registrationObject.put("supplementary_card_mother_name", "N/A");
                             AppConstants.registrationObject.put("supplementary_card_name_on_supplementary_card", "N/A");
 
+                            /*Toast.makeText(getActivity(), "Sorry i don't need supplementary debit card", Toast.LENGTH_SHORT).show();*/
+                        }
 
-                            Toast.makeText(getActivity(), "Sorry i don't need supplementary debit card", Toast.LENGTH_SHORT).show();
-                        }else {
 
                             AppConstants.registrationObject.put("debit_card_debit_card_request", debitcardRequest);
                             AppConstants.registrationObject.put("debit_card_name_on_debit_card", et_debit_card_name_on_debit_card.getText().toString().trim());
                             AppConstants.registrationObject.put("debit_card_mother_name", et_debit_card_mother_name.getText().toString().trim());
 
-                            fragment = new SupplementaryCardFragment();
-                            fragmentManager = getActivity().getSupportFragmentManager();
-                            fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.frame_container, fragment);
-                            fragmentTransaction.addToBackStack(null);
-                            fragmentTransaction.commit();
-                        }
+                            if (supplementarycardNeed.equalsIgnoreCase("No")){
+                                Fragment fragment = new EBankingFragment();
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.frame_container, fragment);
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+                            }
+                            else{
+                                fragment = new SupplementaryCardFragment();
+                                fragmentManager = getActivity().getSupportFragmentManager();
+                                fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.frame_container, fragment);
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+                            }
+
+
                         DataHandler.updatePreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION, AppConstants.registrationObject.toString());
 
 

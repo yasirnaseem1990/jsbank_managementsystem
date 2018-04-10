@@ -35,6 +35,7 @@ import jsbankagent.management.application.utils.AppConstants;
 import jsbankagent.management.application.utils.DataHandler;
 
 import static jsbankagent.management.application.HomeActivity.drawer;
+import static jsbankagent.management.application.utils.AppUtils.britishFormateNew;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +44,7 @@ public class PersonalInformationJointFragment extends Fragment implements View.O
 
     View personalinfojointFragment;
     ImageView iv_menu;
+    TextView tv_personal_info_expiry_date_visa;
     Spinner spinnerpersonaljointGender, spinnerpersonaljointusCitizen, spinnerpersonaljointmaritalStatus, spinnerpersonaljointQualification,
             spinnerpersonaljointProfession;
     String personaljointGender, personaljointusCitizen, personaljointmaritalStatus, personaljointQualification, personalfjointProfesstion;
@@ -89,6 +91,7 @@ public class PersonalInformationJointFragment extends Fragment implements View.O
         btn_next_step_3 = (Button) personalinfojointFragment.findViewById(R.id.btn_next_step_3);
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
 
+        tv_personal_info_expiry_date_visa = personalinfojointFragment.findViewById(R.id.tv_personal_info_expiry_date_visa);
         //Todo Intiliaze the EditText
         et_personal_info_joint_name = personalinfojointFragment.findViewById(R.id.et_personal_info_name);
         et_personal_info_nara_joint_number = personalinfojointFragment.findViewById(R.id.et_personal_info_nara_number);
@@ -228,7 +231,10 @@ public class PersonalInformationJointFragment extends Fragment implements View.O
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
-                dateofBirth.setText(dateFormatter.format(newDate.getTime()));
+
+                SimpleDateFormat newFormat = new SimpleDateFormat(britishFormateNew);
+                dateofbirth = newFormat.format(newDate.getTime());
+                dateofBirth.setText(dateofbirth);
                 dateofbirth = dateofBirth.getText().toString();
                 Log.e("dateofbirth", dateofbirth);
             }
@@ -240,7 +246,10 @@ public class PersonalInformationJointFragment extends Fragment implements View.O
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
-                expirydateofVisa.setText(dateFormatter.format(newDate.getTime()));
+
+                SimpleDateFormat newFormat = new SimpleDateFormat(britishFormateNew);
+                expirydateofvisa = newFormat.format(newDate.getTime());
+                expirydateofVisa.setText(expirydateofvisa);
                 expirydateofvisa = expirydateofVisa.getText().toString();
                 Log.e("expirydateofvisa", expirydateofvisa);
             }
@@ -436,6 +445,16 @@ public class PersonalInformationJointFragment extends Fragment implements View.O
                         break;
                     case R.id.spinner_personal_info_us_citizen:
                         personaljointusCitizen = parent.getSelectedItem().toString();
+                        if (personaljointusCitizen.equalsIgnoreCase("NO")){
+                            expirydateofVisa.setVisibility(View.GONE);
+                            tv_personal_info_expiry_date_visa.setVisibility(View.GONE);
+                            personaljointusCitizen = "N/A";
+                        }
+                        if (personaljointusCitizen.equalsIgnoreCase("YES")){
+                            expirydateofVisa.setVisibility(View.VISIBLE);
+                            tv_personal_info_expiry_date_visa.setVisibility(View.VISIBLE);
+                            personaljointusCitizen = parent.getSelectedItem().toString();
+                        }
                         break;
                     case R.id.spinner_personal_info_marital_status:
                         personaljointmaritalStatus = parent.getSelectedItem().toString();

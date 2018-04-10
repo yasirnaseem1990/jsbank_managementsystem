@@ -23,7 +23,7 @@ import jsbankagent.management.application.model.PendingUploads;
 
 public class AddAgent {
 
-    private static final int VERSION_DB = 3;
+    private static final int VERSION_DB = 4;
 
     /**
      * Represents the database name

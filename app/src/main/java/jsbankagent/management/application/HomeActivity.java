@@ -153,7 +153,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     fragmentManager = getSupportFragmentManager();
                     fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.frame_container, fragment);
-                    fragmentTransaction.addToBackStack(null);
+                    /*fragmentTransaction.addToBackStack(null);*/
                     fragmentTransaction.commit();
                 }catch (Exception e){
                     e.printStackTrace();
@@ -187,7 +187,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             fragmentManager = getSupportFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frame_container, fragment);
-            fragmentTransaction.addToBackStack(null);
+            /*fragmentTransaction.addToBackStack(null);*/
             fragmentTransaction.commit();
             /*Intent intent = new Intent(HomeActivity.this,AddAgentActivity.class);
             startActivity(intent);*/
@@ -198,7 +198,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             fragmentManager = getSupportFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frame_container, fragment);
-            fragmentTransaction.addToBackStack(null);
+            /*fragmentTransaction.addToBackStack(null);*/
             fragmentTransaction.commit();
         }else if (id == R.id.nav_pending_uploads) {
 

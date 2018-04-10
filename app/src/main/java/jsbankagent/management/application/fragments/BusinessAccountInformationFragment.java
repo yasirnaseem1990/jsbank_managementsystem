@@ -31,6 +31,7 @@ import jsbankagent.management.application.utils.AppConstants;
 import jsbankagent.management.application.utils.DataHandler;
 
 import static jsbankagent.management.application.HomeActivity.drawer;
+import static jsbankagent.management.application.utils.AppUtils.britishFormateNew;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -113,14 +114,6 @@ public class BusinessAccountInformationFragment extends Fragment implements View
                 try {
                     if (!checkFields()) {
 
-                        if (debitCardNeed.equalsIgnoreCase("No")) {
-
-                            AppConstants.registrationObject.put("debit_card_debit_card_request", "N/A");
-                            AppConstants.registrationObject.put("debit_card_name_on_debit_card", "N/A");
-                            AppConstants.registrationObject.put("debit_card_mother_name", "N/A");
-
-                            Toast.makeText(getActivity(), "Sorry I don't need debit card", Toast.LENGTH_SHORT).show();
-                        } else {
 
                             AppConstants.registrationObject.put("business_account_info_name", et_business_account_info_name.getText().toString().trim());
                             AppConstants.registrationObject.put("business_account_info_nature_of_business", et_business_account_info_nature_of_business.getText().toString().trim());
@@ -132,13 +125,33 @@ public class BusinessAccountInformationFragment extends Fragment implements View
                             AppConstants.registrationObject.put("business_account_info_contact_number", et_business_account_info_contact_number.getText().toString().trim());
                             AppConstants.registrationObject.put("business_account_info_fax_number", et_business_account_info_fax_number.getText().toString().trim());
 
-                            fragment = new DebitCardInformation();
-                            fragmentManager = getActivity().getSupportFragmentManager();
-                            fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.frame_container, fragment);
-                            fragmentTransaction.addToBackStack(null);
-                            fragmentTransaction.commit();
+
+                        if (debitCardNeed.equalsIgnoreCase("No")) {
+
+                            AppConstants.registrationObject.put("debit_card_debit_card_request", "N/A");
+                            AppConstants.registrationObject.put("debit_card_name_on_debit_card", "N/A");
+                            AppConstants.registrationObject.put("debit_card_mother_name", "N/A");
+
+                            /*Toast.makeText(getActivity(), "Sorry I don't need debit card", Toast.LENGTH_SHORT).show();*/
                         }
+                            if (debitCardNeed.equalsIgnoreCase("No")){
+
+                                fragment = new SupplementaryCardFragment();
+                                fragmentManager = getActivity().getSupportFragmentManager();
+                                fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.frame_container, fragment);
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+                            }else{
+                                fragment = new DebitCardInformation();
+                                fragmentManager = getActivity().getSupportFragmentManager();
+                                fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.frame_container, fragment);
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+                            }
+
+
                         DataHandler.updatePreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION, AppConstants.registrationObject.toString());
 
                     }
@@ -162,7 +175,9 @@ public class BusinessAccountInformationFragment extends Fragment implements View
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
-                et_businessdateofRegistraiton.setText(dateFormatter.format(newDate.getTime()));
+                SimpleDateFormat newFormat = new SimpleDateFormat(britishFormateNew);
+                dateofregistration = newFormat.format(newDate.getTime());
+                et_businessdateofRegistraiton.setText(dateofregistration);
                 dateofregistration = et_businessdateofRegistraiton.getText().toString();
                 Log.e("dateofbirth", dateofregistration);
             }

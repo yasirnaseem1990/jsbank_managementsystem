@@ -323,7 +323,7 @@ public class EBankingFragment extends Fragment implements AdapterView.OnItemSele
                                     mParams.add(new BasicNameValuePair("ebankingeStatement", jsonObject.getString("e_banking_e_statement")));
                                     mParams.add(new BasicNameValuePair("ebankingFrequency", jsonObject.getString("e_banking_frequency")));
 
-
+                                    Log.e("mParams",":"+mParams);
                                     NewAccountAsyncTask accountAsyncTask = new NewAccountAsyncTask(getActivity(), WebServiceConstants.END_POINT_NEW_REGISTRATION, mParams);
                                     accountAsyncTask.execute();
                                 }
@@ -332,8 +332,6 @@ public class EBankingFragment extends Fragment implements AdapterView.OnItemSele
                             }
 
                         }
-
-
                         Toast.makeText(getActivity(), "Form Saved", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {

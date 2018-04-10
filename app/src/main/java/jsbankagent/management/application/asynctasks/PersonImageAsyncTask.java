@@ -27,8 +27,10 @@ public class PersonImageAsyncTask extends BaseAsyncTask {
     public static ProgressBarDialog progressBarDialogRegister;
     private String userId = "";
     private JSONObject jsonObject = null;
-    public  List<NameValuePair> mParams;
+    public List<NameValuePair> mParams;
     Activity mActivity;
+    private String base64CnicFront = "";
+
     public PersonImageAsyncTask(Context context, String route, List<NameValuePair> pp) {
         super(context, route, pp);
 
@@ -39,7 +41,6 @@ public class PersonImageAsyncTask extends BaseAsyncTask {
     }
 
 
-
     /**
      * AsyncTask method basic calls during a request, calls the parent's method.
      */
@@ -47,51 +48,52 @@ public class PersonImageAsyncTask extends BaseAsyncTask {
 
         return "";
     }
+
     /**
      * AsyncTask method basic calls after a request.
      */
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        if(s != null) {
+        if (s != null) {
             int intResponse = Integer.parseInt(s);
             Log.e("ResponseCode", "" + intResponse);
             Log.e("response", "" + response);
             Log.e("resultat", "" + resultat);
-            try{
+            try {
                 progressBarDialogRegister.dismiss();
                 progressBarDialogRegister = null;
-            }catch (Exception exception){
+            } catch (Exception exception) {
                 exception.printStackTrace();
             }
 
             switch (intResponse) {
-                case 200 :
-                    try{
+                case 200:
+                    try {
+                        userId = DataHandler.getStringPreferences(AppConstants.NEW_ACCOUNT_ID);
+                        Log.e("userId_PersonImageAsync", userId);
+                        String jsonObjNewAccount = DataHandler.getStringPreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION);
+                        Log.e("jsonObjNewAccount :", jsonObjNewAccount);
+                        if (jsonObjNewAccount != null && !jsonObjNewAccount.isEmpty()) {
+                            jsonObject = new JSONObject(jsonObjNewAccount);
 
-                        if(resultat !=null && !resultat.isEmpty()){
-                            JSONObject objnewAccount = new JSONObject(resultat);
-                            userId = objnewAccount.getString("UserId");
+                            base64CnicFront = jsonObject.getString("cnic_front_image");
+                            Log.e("base64CnicFront", base64CnicFront);
+                            mParams = new ArrayList<NameValuePair>();
+                            mParams.add(new BasicNameValuePair("id", userId));
+                            mParams.add(new BasicNameValuePair("account_images", jsonObject.getString("cnic_front_image")));
+                            mParams.add(new BasicNameValuePair("imageposition", "cnic_front"));
+                            CnicFrontAsyncTask cnicFrontAsyncTask = new CnicFrontAsyncTask(context, WebServiceConstants.END_POINT_IMAGES, mParams);
+                            cnicFrontAsyncTask.execute();
 
-                            String jsonObjNewAccount = DataHandler.getStringPreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION);
-                            Log.e("jsonObjNewAccount :", jsonObjNewAccount);
-                            if (jsonObjNewAccount != null && !jsonObjNewAccount.isEmpty()) {
-
-                                mParams = new ArrayList<NameValuePair>();
-                                mParams.add(new BasicNameValuePair("id ", userId));
-                                mParams.add(new BasicNameValuePair("account_images ", jsonObject.getString("cnic_front_image")));
-
-                                CnicFrontAsyncTask cnicFrontAsyncTask = new CnicFrontAsyncTask(context, WebServiceConstants.END_POINT_IMAGES,mParams);
-                                cnicFrontAsyncTask.execute();
-
-                            }
-                            
                         }
-                    }catch (Exception e){
+
+
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     break;
                 case 403:
-                    try{
+                    try {
                         AlertDialog.Builder error_403 = new AlertDialog.Builder(context);
                         error_403.setMessage(context.getResources().getString(R.string.error_login_403)).setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
@@ -100,13 +102,13 @@ public class PersonImageAsyncTask extends BaseAsyncTask {
                             }
                         });
                         error_403.show();
-                    }catch (Exception exception){
+                    } catch (Exception exception) {
                         exception.printStackTrace();
                     }
 
                     break;
                 case 500:
-                    try{
+                    try {
                         AlertDialog.Builder error_500 = new AlertDialog.Builder(context);
                         error_500.setMessage(context.getResources().getString(R.string.error_rate_500)).setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
@@ -115,7 +117,7 @@ public class PersonImageAsyncTask extends BaseAsyncTask {
                             }
                         });
                         error_500.show();
-                    }catch (Exception exception){
+                    } catch (Exception exception) {
                         exception.printStackTrace();
                     }
 
@@ -126,11 +128,11 @@ public class PersonImageAsyncTask extends BaseAsyncTask {
                     break;
                 //thanks now code is merged complete
             }
-        }else {
-            try{
+        } else {
+            try {
                 progressBarDialogRegister.dismiss();
                 progressBarDialogRegister = null;
-            }catch (Exception exception){
+            } catch (Exception exception) {
                 exception.printStackTrace();
             }
         }

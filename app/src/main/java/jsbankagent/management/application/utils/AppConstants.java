@@ -12,6 +12,7 @@ public class AppConstants {
     public static final String LOGIN_KEY ="LOGIN_KEY";
     public static final String PROFILE_DATA = "PROFILE_DATA";
     public static final String FORM_ID = "FORM_ID";
+    public static final String NEW_ACCOUNT_ID = "NEW_ACCOUNT_ID";
     public static JSONObject registrationObject = null;
     public static JSONObject preaccountinfoObject = null;
     public static final String PREFERENCE_APPLICANT_NEW_REGISTRATION = "PREFERENCE_APPLICANT_NEW_REGISTRATION";
