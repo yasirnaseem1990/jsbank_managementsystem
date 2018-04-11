@@ -133,4 +133,5 @@
     <string name="txt_supplementary_card_need">Supplementary Card</string>
     <string name="txt_e_banking_need">Do You Need E-Banking</string>
     <string name="tv_relationship">Relationship</string>
+    <string name="select">--select--</string>
 </resources>

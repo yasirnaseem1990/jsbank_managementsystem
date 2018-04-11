@@ -303,6 +303,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
                     android:spinnerMode="dropdown"
+                    android:ellipsize="marquee"
                     android:id="@+id/spinner_qualification" />
                 </RelativeLayout>
                 <TextView
@@ -363,6 +364,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/et_designation"
+                    android:inputType="text"
                     android:layout_below="@+id/tv_designation"
                     android:background="@drawable/custom_border_edit_text"/>
 

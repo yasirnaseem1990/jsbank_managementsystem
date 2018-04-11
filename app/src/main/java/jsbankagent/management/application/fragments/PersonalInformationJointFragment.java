@@ -298,7 +298,13 @@ public class PersonalInformationJointFragment extends Fragment implements View.O
         personal_info_nara_joint_number = et_personal_info_nara_joint_number.getText().toString().trim();
         personal_info_joint_expiry_nara_number = et_personal_info_joint_expiry_nara_number.getText().toString().trim();
         personal_info_joint_dob = et_personal_info_joint_dob.getText().toString().trim();
-        personal_info_joint_expiry_date_visa = et_personal_info_joint_expiry_date_visa.getText().toString().trim();
+        if (personaljointusCitizen.equalsIgnoreCase("NO")){
+            personaljointusCitizen = "NO";
+            personal_info_joint_expiry_date_visa = "N/A";
+        }else{
+            personal_info_joint_expiry_date_visa = et_personal_info_joint_expiry_date_visa.getText().toString().trim();
+        }
+
         personal_info_joint_expiry_father_name = et_personal_info_joint_expiry_father_name.getText().toString().trim();
         personal_info_joint_nationality = et_personal_info_joint_nationality.getText().toString().trim();
         personal_info_joint_ntn_number = et_personal_info_joint_ntn_number.getText().toString().trim();
@@ -448,7 +454,7 @@ public class PersonalInformationJointFragment extends Fragment implements View.O
                         if (personaljointusCitizen.equalsIgnoreCase("NO")){
                             expirydateofVisa.setVisibility(View.GONE);
                             tv_personal_info_expiry_date_visa.setVisibility(View.GONE);
-                            personaljointusCitizen = "N/A";
+
                         }
                         if (personaljointusCitizen.equalsIgnoreCase("YES")){
                             expirydateofVisa.setVisibility(View.VISIBLE);

@@ -94,7 +94,7 @@ public class NextOfKinFragment extends Fragment implements AdapterView.OnItemSel
                         AppConstants.registrationObject.put("next_kin_relationship", et_next_of_kin_relationship.getText().toString().trim());
                         AppConstants.registrationObject.put("next_kin_nara_number", et_next_of_kin_nara_number.getText().toString().trim());
                         AppConstants.registrationObject.put("next_kin_mailing_address", et_next_of_kin_mailing_address.getText().toString().trim());
-                        AppConstants.registrationObject.put("next_kin_contact_number", et_next_of_kin_contact_number.getText().toString().trim());
+                        AppConstants.registrationObject.put("next_kin_contact_number", next_of_kin_contact_number);
                         AppConstants.registrationObject.put("next_kin_cell_number", et_next_of_kin_cell_number.getText().toString().trim());
                         fragment = new BusinessAccountInformationFragment();
                         fragmentManager = getActivity().getSupportFragmentManager();
@@ -171,7 +171,7 @@ public class NextOfKinFragment extends Fragment implements AdapterView.OnItemSel
         next_of_kin_relationship = et_next_of_kin_relationship.getText().toString().trim();
         next_of_kin_nara_number = et_next_of_kin_nara_number.getText().toString().trim();
         next_of_kin_mailing_address = et_next_of_kin_mailing_address.getText().toString().trim();
-        next_of_kin_contact_number = et_next_of_kin_contact_number.getText().toString().trim();
+        next_of_kin_contact_number = !et_next_of_kin_contact_number.getText().toString().equals("") ? et_next_of_kin_contact_number.getText().toString().trim() : "N/A";
         next_of_kin_cell_number = et_next_of_kin_cell_number.getText().toString().trim();
 
 
@@ -199,11 +199,11 @@ public class NextOfKinFragment extends Fragment implements AdapterView.OnItemSel
                 et_next_of_kin_mailing_address.setError(getString(R.string.error_field_required));
                 focusView = et_next_of_kin_mailing_address;
                 cancel = true;
-            } else if (TextUtils.isEmpty(next_of_kin_contact_number)) {
+            } /*else if (TextUtils.isEmpty(next_of_kin_contact_number)) {
                 et_next_of_kin_contact_number.setError(getString(R.string.error_field_required));
                 focusView = et_next_of_kin_contact_number;
                 cancel = true;
-            } else if (TextUtils.isEmpty(next_of_kin_cell_number)) {
+            }*/ else if (TextUtils.isEmpty(next_of_kin_cell_number)) {
                 et_next_of_kin_cell_number.setError(getString(R.string.error_field_required));
                 focusView = et_next_of_kin_cell_number;
                 cancel = true;

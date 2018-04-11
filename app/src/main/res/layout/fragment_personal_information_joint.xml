@@ -165,21 +165,7 @@
                     android:nextFocusDown="@id/et_name" />
             </RelativeLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_personal_info_expiry_date_visa"
-                android:text="@string/personal_info_expiry_dob"
-                android:layout_below="@+id/personal_info_gender_layout"
-                android:textSize="15dp"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/et_personal_info_expiry_date_visa"
-                android:layout_below="@+id/tv_personal_info_expiry_date_visa"
-                android:background="@drawable/custom_border_edit_text"
-                android:hint="@string/tv_expiry_date_visa"
-                android:inputType="text" />
+
 
 
             <TextView
@@ -187,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_personal_info_father_name"
                 android:text="@string/personal_info_father_name"
-                android:layout_below="@+id/et_personal_info_expiry_date_visa"
+                android:layout_below="@+id/personal_info_gender_layout"
                 android:textSize="15dp"/>
             <EditText
                 android:layout_width="match_parent"
@@ -222,9 +208,25 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/tv_personal_info_expiry_date_visa"
+                android:text="@string/personal_info_expiry_dob"
+                android:layout_below="@+id/personal_info_us_citizen_layout"
+                android:textSize="15dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_personal_info_expiry_date_visa"
+                android:layout_below="@+id/tv_personal_info_expiry_date_visa"
+                android:background="@drawable/custom_border_edit_text"
+                android:hint="@string/tv_expiry_date_visa"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/tv_personal_info_nationality"
                 android:text="@string/personal_info_nationality"
-                android:layout_below="@+id/personal_info_us_citizen_layout"
+                android:layout_below="@+id/et_personal_info_expiry_date_visa"
                 android:textSize="15dp"/>
             <EditText
                 android:layout_width="match_parent"

@@ -171,6 +171,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+        moveTaskToBack(true);
+        finish();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

@@ -91,7 +91,7 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
     Fragment fragment;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
-    String courtesyTitle, gender, maritalStatus, qualification, profession, mailainAddress, usCitizen;
+    private String courtesyTitle = "", gender = "", maritalStatus = "", qualification = "", profession = "", mailainAddress = "", usCitizen = "";
     private String newaccountpicturePath = "";
     private Uri selectedImage;
     private String base64personImage = "";
@@ -193,25 +193,25 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
 
         //Qualification  Spinner
         ArrayAdapter<CharSequence> qualificationAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.listQualification, android.R.layout.simple_spinner_item);
+                R.array.listQualification, R.layout.spinner_textview_with_padding);
         maritalstatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerQaulification.setAdapter(qualificationAdapter);
 
         //Profession  Spinner
         ArrayAdapter<CharSequence> professionAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.listProfession, android.R.layout.simple_spinner_item);
+                R.array.listProfession, R.layout.spinner_textview_with_padding);
         maritalstatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerProfession.setAdapter(professionAdapter);
 
         //Mailing Address  Spinner
         ArrayAdapter<CharSequence> designationAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.listmailingAddress, android.R.layout.simple_spinner_item);
+                R.array.listmailingAddress, R.layout.spinner_textview_with_padding);
         maritalstatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnermailingAddress.setAdapter(designationAdapter);
 
         //Us Citizen   Spinner
         ArrayAdapter<CharSequence> uscitizenAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.listusCitizen, android.R.layout.simple_spinner_item);
+                R.array.listusCitizen, R.layout.spinner_textview_with_padding);
         maritalstatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerusCitizen.setAdapter(uscitizenAdapter);
 
@@ -224,31 +224,31 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
                 try {
                     if (!checkFields()) {
                         AppConstants.registrationObject.put("personal_info_courtesy_title", courtesyTitle);
-                        AppConstants.registrationObject.put("personal_info_name", et_personal_info_name.getText().toString().trim());
-                        AppConstants.registrationObject.put("personal_info_cnic", et_personal_info_cnic.getText().toString().trim());
-                        AppConstants.registrationObject.put("personal_info_expiry_cnic", et_personal_info_expiry_cnic.getText().toString().trim());
-                        AppConstants.registrationObject.put("personal_info_dob", et_personal_info_dob.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_name", personal_info_name);
+                        AppConstants.registrationObject.put("personal_info_cnic", personal_info_cnic);
+                        AppConstants.registrationObject.put("personal_info_expiry_cnic", personal_info_expiry_cnic);
+                        AppConstants.registrationObject.put("personal_info_dob",personal_info_dob);
                         AppConstants.registrationObject.put("personal_info_gender", gender);
-                        AppConstants.registrationObject.put("personal_info_nationality", et_personal_info_nationality.getText().toString().trim());
-                        AppConstants.registrationObject.put("personal_info_ntn_number", et_personal_info_ntn_number.getText().toString().trim());
-                        AppConstants.registrationObject.put("personal_info_placeofbirth", et_personal_info_place_birth.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_nationality", personal_info_nationality);
+                        AppConstants.registrationObject.put("personal_info_ntn_number", personal_info_ntn_number);
+                        AppConstants.registrationObject.put("personal_info_placeofbirth", personal_info_place_birth);
                         AppConstants.registrationObject.put("personal_info_marital_status", maritalStatus);
                         AppConstants.registrationObject.put("personal_info_qualification", qualification);
                         AppConstants.registrationObject.put("personal_info_profession", profession);
-                        AppConstants.registrationObject.put("personal_info_employee_business", et_personal_info_employee_business.getText().toString().trim());
-                        AppConstants.registrationObject.put("personal_info_nature_business", et_personal_info_nature_business.getText().toString().trim());
-                        AppConstants.registrationObject.put("personal_info_designation", et_personal_info_designation.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_employee_business", personal_info_employee_business);
+                        AppConstants.registrationObject.put("personal_info_nature_business", personal_info_nature_business);
+                        AppConstants.registrationObject.put("personal_info_designation", personal_info_designation);
                         AppConstants.registrationObject.put("personal_info_mailainAddress", mailainAddress);
-                        AppConstants.registrationObject.put("personal_info_father_name", et_personal_info_father_husband_name.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_father_name", personal_info_father_husband_name);
                         AppConstants.registrationObject.put("personal_info_uscitizen", usCitizen);
-                        AppConstants.registrationObject.put("personal_info_visa_expiry_date", et_personal_info_visa_expiry_date.getText().toString().trim());
-                        AppConstants.registrationObject.put("personal_info_residential_address", et_personal_info_residential_address.getText().toString().trim());
-                        AppConstants.registrationObject.put("personal_info_residential_contact_no", et_personal_info_residential_contact_no.getText().toString().trim());
-                        AppConstants.registrationObject.put("personal_info_contact_no", et_personal_info_contact_no.getText().toString().trim());
-                        AppConstants.registrationObject.put("personal_info_office_address", et_personal_info_office_address.getText().toString().trim());
-                        AppConstants.registrationObject.put("personal_info_office_number", et_personal_info_office_number.getText().toString().trim());
-                        AppConstants.registrationObject.put("personal_info_telenor_golden_no", et_personal_info_telenor_golden_no.getText().toString().trim());
-                        AppConstants.registrationObject.put("personal_info_email", et_personal_info_email.getText().toString().trim());
+                        AppConstants.registrationObject.put("personal_info_visa_expiry_date", personal_info_visa_expiry_date);
+                        AppConstants.registrationObject.put("personal_info_residential_address", personal_info_residential_address);
+                        AppConstants.registrationObject.put("personal_info_residential_contact_no", personal_info_residential_contact_no);
+                        AppConstants.registrationObject.put("personal_info_contact_no", personal_info_contact_no);
+                        AppConstants.registrationObject.put("personal_info_office_address", personal_info_office_address);
+                        AppConstants.registrationObject.put("personal_info_office_number", personal_info_office_number);
+                        AppConstants.registrationObject.put("personal_info_telenor_golden_no", personal_info_telenor_golden_no);
+                        AppConstants.registrationObject.put("personal_info_email", personal_info_email);
 
                         //TODO Saving BASE64 of three images in AppConstants Registration Object JsonObject
                         AppConstants.registrationObject.put("person_image", base64personImage);
@@ -453,6 +453,7 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
                         break;
                     case R.id.spinner_qualification:
                         qualification = parent.getSelectedItem().toString();
+                        break;
                     case R.id.spinner_profession:
                         profession = parent.getSelectedItem().toString();
                         break;
@@ -461,12 +462,11 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
                         break;
                     case R.id.spinner_us_citizen:
                         usCitizen = parent.getSelectedItem().toString();
-                        if (usCitizen.equalsIgnoreCase("NO")){
+                        if (usCitizen.equalsIgnoreCase("NO")) {
                             expirydateofVisa.setVisibility(View.GONE);
                             tv_expiry_date_visa.setVisibility(View.GONE);
-                            usCitizen = "N/A";
                         }
-                        if (usCitizen.equalsIgnoreCase("YES")){
+                        if (usCitizen.equalsIgnoreCase("YES")) {
                             expirydateofVisa.setVisibility(View.VISIBLE);
                             tv_expiry_date_visa.setVisibility(View.VISIBLE);
                             usCitizen = parent.getSelectedItem().toString();
@@ -487,7 +487,7 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
         et_personal_info_expiry_cnic.setError(null);
         et_personal_info_dob.setError(null);
         et_personal_info_nationality.setError(null);
-        et_personal_info_ntn_number.setError(null);
+        /*et_personal_info_ntn_number.setError(null);*/
         et_personal_info_place_birth.setError(null);
         et_personal_info_employee_business.setError(null);
         et_personal_info_nature_business.setError(null);
@@ -511,23 +511,42 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
         personal_info_expiry_cnic = et_personal_info_expiry_cnic.getText().toString().trim();
         personal_info_dob = et_personal_info_dob.getText().toString().trim();
         personal_info_nationality = et_personal_info_nationality.getText().toString().trim();
-        personal_info_ntn_number = et_personal_info_ntn_number.getText().toString().trim();
+        personal_info_ntn_number = !et_personal_info_ntn_number.getText().toString().equals("") ? et_personal_info_ntn_number.getText().toString().trim() : "N/A";
+
         personal_info_place_birth = et_personal_info_place_birth.getText().toString().trim();
         personal_info_employee_business = et_personal_info_employee_business.getText().toString().trim();
         personal_info_nature_business = et_personal_info_nature_business.getText().toString().trim();
         personal_info_designation = et_personal_info_designation.getText().toString().trim();
         personal_info_father_husband_name = et_personal_info_father_husband_name.getText().toString().trim();
-        personal_info_visa_expiry_date = et_personal_info_visa_expiry_date.getText().toString().trim();
+        try{
+            if (usCitizen.equalsIgnoreCase("NO")) {
+                usCitizen = "NO";
+                personal_info_visa_expiry_date = "N/A";
+            } else {
+                personal_info_visa_expiry_date = et_personal_info_visa_expiry_date.getText().toString().trim();
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+
         personal_info_residential_address = et_personal_info_residential_address.getText().toString().trim();
-        personal_info_residential_contact_no = et_personal_info_residential_contact_no.getText().toString().trim();
+        personal_info_residential_contact_no = !et_personal_info_residential_contact_no.getText().toString().equals("") ? et_personal_info_residential_contact_no.getText().toString().trim() : "N/A";
+
         personal_info_contact_no = et_personal_info_contact_no.getText().toString().trim();
         personal_info_office_address = et_personal_info_office_address.getText().toString().trim();
-        personal_info_office_number = et_personal_info_office_number.getText().toString().trim();
-        personal_info_telenor_golden_no = et_personal_info_telenor_golden_no.getText().toString().trim();
-        personal_info_email = et_personal_info_email.getText().toString().trim();
+        personal_info_office_number = !et_personal_info_office_number.getText().toString().equals("") ? et_personal_info_office_number.getText().toString().trim() : "N/A";
 
+        personal_info_telenor_golden_no = et_personal_info_telenor_golden_no.getText().toString().trim();
+        personal_info_email = !et_personal_info_email.getText().toString().equals("") ? et_personal_info_email.getText().toString().trim() : "N/A";
         try {
-            if (TextUtils.isEmpty(personal_info_name)) {
+            if (TextUtils.isEmpty(courtesyTitle)){
+                Toast toast = Toast.makeText(getActivity(), "Please select your courtesy title", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+                focusView = spinnercourtesyTitle;
+                cancel = true;
+            } else if (TextUtils.isEmpty(personal_info_name)) {
 
                 et_personal_info_name.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_name;
@@ -544,19 +563,55 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
                 et_personal_info_dob.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_dob;
                 cancel = true;
-            } else if (TextUtils.isEmpty(personal_info_nationality)) {
+            } else if (TextUtils.isEmpty(gender)){
+                Toast toast = Toast.makeText(getActivity(), "Please select your gender", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+                focusView = spinnerGender;
+                cancel = true;
+            }else if (TextUtils.isEmpty(personal_info_nationality)) {
                 et_personal_info_nationality.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_nationality;
                 cancel = true;
-            } else if (TextUtils.isEmpty(personal_info_ntn_number)) {
+            } /*else if (TextUtils.isEmpty(personal_info_ntn_number)) {
                 et_personal_info_ntn_number.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_ntn_number;
                 cancel = true;
-            } else if (TextUtils.isEmpty(personal_info_place_birth)) {
+            }*/ else if (TextUtils.isEmpty(personal_info_place_birth)) {
                 et_personal_info_place_birth.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_place_birth;
                 cancel = true;
-            } else if (TextUtils.isEmpty(personal_info_employee_business)) {
+            } else if (TextUtils.isEmpty(maritalStatus)){
+                Toast toast = Toast.makeText(getActivity(), "Please select your marital status", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+                focusView = spinnermaritalStatus;
+                cancel = true;
+            } else if (TextUtils.isEmpty(qualification)){
+                Toast toast = Toast.makeText(getActivity(), "Please select your qualification", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+                focusView = spinnerQaulification;
+                cancel = true;
+            } else if (TextUtils.isEmpty(profession)){
+                Toast toast = Toast.makeText(getActivity(), "Please select your profession", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+                focusView = spinnerProfession;
+                cancel = true;
+            } else if (TextUtils.isEmpty(mailainAddress)){
+                Toast toast = Toast.makeText(getActivity(), "Please select your mailing address", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+                focusView = spinnermailingAddress;
+                cancel = true;
+            } else if (TextUtils.isEmpty(usCitizen)){
+                Toast toast = Toast.makeText(getActivity(), "Please select your citizenship", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+                focusView = spinnerusCitizen;
+                cancel = true;
+            }else if (TextUtils.isEmpty(personal_info_employee_business)) {
                 et_personal_info_employee_business.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_employee_business;
                 cancel = true;
@@ -580,11 +635,11 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
                 et_personal_info_residential_address.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_residential_address;
                 cancel = true;
-            } else if (TextUtils.isEmpty(personal_info_residential_contact_no)) {
+            } /*else if (TextUtils.isEmpty(personal_info_residential_contact_no)) {
                 et_personal_info_residential_contact_no.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_residential_contact_no;
                 cancel = true;
-            } else if (TextUtils.isEmpty(personal_info_contact_no)) {
+            }*/ else if (TextUtils.isEmpty(personal_info_contact_no)) {
                 et_personal_info_contact_no.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_contact_no;
                 cancel = true;
@@ -592,19 +647,19 @@ public class PersonalInformationFrament extends Fragment implements OnClickListe
                 et_personal_info_office_address.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_office_address;
                 cancel = true;
-            } else if (TextUtils.isEmpty(personal_info_office_number)) {
+            } /*else if (TextUtils.isEmpty(personal_info_office_number)) {
                 et_personal_info_office_number.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_office_number;
                 cancel = true;
-            } else if (TextUtils.isEmpty(personal_info_telenor_golden_no)) {
+            }*/ else if (TextUtils.isEmpty(personal_info_telenor_golden_no)) {
                 et_personal_info_telenor_golden_no.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_telenor_golden_no;
                 cancel = true;
-            } else if (TextUtils.isEmpty(personal_info_email)) {
+            } /*else if (TextUtils.isEmpty(personal_info_email)) {
                 et_personal_info_email.setError(getString(R.string.error_field_required));
                 focusView = et_personal_info_email;
                 cancel = true;
-            } else if (TextUtils.isEmpty(base64personImage)) {
+            }*/ else if (TextUtils.isEmpty(base64personImage)) {
                 Toast toast = Toast.makeText(getActivity(), "Please take your image", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                 toast.show();

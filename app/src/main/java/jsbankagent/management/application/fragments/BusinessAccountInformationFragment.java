@@ -55,6 +55,7 @@ public class BusinessAccountInformationFragment extends Fragment implements View
     private SimpleDateFormat dateFormatter;
     private String getPreAccountInfo = "";
     private String debitCardNeed = "";
+    private String supplementaryCard = "";
     private JSONObject jsonObject = null;
 
     public BusinessAccountInformationFragment() {
@@ -89,6 +90,7 @@ public class BusinessAccountInformationFragment extends Fragment implements View
             jsonObject = new JSONObject(getPreAccountInfo);
             if (jsonObject != null) {
                 debitCardNeed = jsonObject.getString("pre_debit_card_need");
+                supplementaryCard = jsonObject.getString("pre_supplementary_card_need");
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -115,15 +117,15 @@ public class BusinessAccountInformationFragment extends Fragment implements View
                     if (!checkFields()) {
 
 
-                            AppConstants.registrationObject.put("business_account_info_name", et_business_account_info_name.getText().toString().trim());
-                            AppConstants.registrationObject.put("business_account_info_nature_of_business", et_business_account_info_nature_of_business.getText().toString().trim());
-                            AppConstants.registrationObject.put("business_account_info_registration_number", et_business_account_info_registration_number.getText().toString().trim());
-                            AppConstants.registrationObject.put("business_account_info_ntn_number", et_business_account_info_ntn_number.getText().toString().trim());
-                            AppConstants.registrationObject.put("business_account_date_of_registration", et_businessdateofRegistraiton.getText().toString().trim());
-                            AppConstants.registrationObject.put("business_account_info_place_of_registration", et_business_account_info_place_of_registration.getText().toString().trim());
-                            AppConstants.registrationObject.put("business_account_info_office_address", et_business_account_info_office_address.getText().toString().trim());
-                            AppConstants.registrationObject.put("business_account_info_contact_number", et_business_account_info_contact_number.getText().toString().trim());
-                            AppConstants.registrationObject.put("business_account_info_fax_number", et_business_account_info_fax_number.getText().toString().trim());
+                        AppConstants.registrationObject.put("business_account_info_name", et_business_account_info_name.getText().toString().trim());
+                        AppConstants.registrationObject.put("business_account_info_nature_of_business", et_business_account_info_nature_of_business.getText().toString().trim());
+                        AppConstants.registrationObject.put("business_account_info_registration_number", business_account_info_registration_number);
+                        AppConstants.registrationObject.put("business_account_info_ntn_number", business_account_info_ntn_number);
+                        AppConstants.registrationObject.put("business_account_date_of_registration", businessdateofRegistraiton);
+                        AppConstants.registrationObject.put("business_account_info_place_of_registration", business_account_info_place_of_registration);
+                        AppConstants.registrationObject.put("business_account_info_office_address", et_business_account_info_office_address.getText().toString().trim());
+                        AppConstants.registrationObject.put("business_account_info_contact_number", et_business_account_info_contact_number.getText().toString().trim());
+                        AppConstants.registrationObject.put("business_account_info_fax_number", business_account_info_fax_number);
 
 
                         if (debitCardNeed.equalsIgnoreCase("No")) {
@@ -134,7 +136,26 @@ public class BusinessAccountInformationFragment extends Fragment implements View
 
                             /*Toast.makeText(getActivity(), "Sorry I don't need debit card", Toast.LENGTH_SHORT).show();*/
                         }
-                            if (debitCardNeed.equalsIgnoreCase("No")){
+                        if (supplementaryCard.equalsIgnoreCase("NO")){
+                            AppConstants.registrationObject.put("supplementary_card_request", "N/A");
+                            AppConstants.registrationObject.put("supplementary_card_full_name", "N/A");
+                            AppConstants.registrationObject.put("supplementary_card_dobs", "N/A");
+                            AppConstants.registrationObject.put("supplementary_card_relationship", "N/A");
+                            AppConstants.registrationObject.put("supplementary_card_cnic_number", "0");
+                            AppConstants.registrationObject.put("supplementary_card_visa_expiry_date", "N/A");
+                            AppConstants.registrationObject.put("supplementary_card_mother_name", "N/A");
+                            AppConstants.registrationObject.put("supplementary_card_name_on_supplementary_card", "N/A");
+                        }
+                        if (debitCardNeed.equalsIgnoreCase("No")) {
+
+                            if (supplementaryCard.equalsIgnoreCase("NO")) {
+                                Fragment fragment = new EBankingFragment();
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.frame_container, fragment);
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+                            } else {
 
                                 fragment = new SupplementaryCardFragment();
                                 fragmentManager = getActivity().getSupportFragmentManager();
@@ -142,14 +163,15 @@ public class BusinessAccountInformationFragment extends Fragment implements View
                                 fragmentTransaction.replace(R.id.frame_container, fragment);
                                 fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();
-                            }else{
-                                fragment = new DebitCardInformation();
-                                fragmentManager = getActivity().getSupportFragmentManager();
-                                fragmentTransaction = fragmentManager.beginTransaction();
-                                fragmentTransaction.replace(R.id.frame_container, fragment);
-                                fragmentTransaction.addToBackStack(null);
-                                fragmentTransaction.commit();
                             }
+                        } else {
+                            fragment = new DebitCardInformation();
+                            fragmentManager = getActivity().getSupportFragmentManager();
+                            fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.frame_container, fragment);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
 
 
                         DataHandler.updatePreferences(AppConstants.PREFERENCE_APPLICANT_NEW_REGISTRATION, AppConstants.registrationObject.toString());
@@ -212,13 +234,14 @@ public class BusinessAccountInformationFragment extends Fragment implements View
 
         business_account_info_name = et_business_account_info_name.getText().toString().trim();
         business_account_info_nature_of_business = et_business_account_info_nature_of_business.getText().toString().trim();
-        business_account_info_registration_number = et_business_account_info_registration_number.getText().toString().trim();
-        business_account_info_ntn_number = et_business_account_info_ntn_number.getText().toString().trim();
-        businessdateofRegistraiton = et_businessdateofRegistraiton.getText().toString().trim();
-        business_account_info_place_of_registration = et_business_account_info_place_of_registration.getText().toString().trim();
+
+        business_account_info_registration_number = !et_business_account_info_registration_number.getText().toString().equals("") ? et_business_account_info_registration_number.getText().toString().trim() : "N/A";
+        business_account_info_ntn_number = !et_business_account_info_ntn_number.getText().toString().equals("") ? et_business_account_info_ntn_number.getText().toString().trim() : "N/A";
+        businessdateofRegistraiton = !et_businessdateofRegistraiton.getText().toString().equals("") ? et_businessdateofRegistraiton.getText().toString().trim() : "N/A";
+        business_account_info_place_of_registration = !et_business_account_info_place_of_registration.getText().toString().equals("") ? et_business_account_info_place_of_registration.getText().toString().trim() : "N/A";
         business_account_info_office_address = et_business_account_info_office_address.getText().toString().trim();
         business_account_info_contact_number = et_business_account_info_contact_number.getText().toString().trim();
-        business_account_info_fax_number = et_business_account_info_fax_number.getText().toString().trim();
+        business_account_info_fax_number = !et_business_account_info_fax_number.getText().toString().equals("") ? et_business_account_info_fax_number.getText().toString().trim() : "N/A";
 
 
         try {
@@ -231,7 +254,7 @@ public class BusinessAccountInformationFragment extends Fragment implements View
                 et_business_account_info_nature_of_business.setError(getString(R.string.error_field_required));
                 focusView = et_business_account_info_nature_of_business;
                 cancel = true;
-            } else if (TextUtils.isEmpty(business_account_info_registration_number)) {
+            } /*else if (TextUtils.isEmpty(business_account_info_registration_number)) {
                 et_business_account_info_registration_number.setError(getString(R.string.error_field_required));
                 focusView = et_business_account_info_registration_number;
                 cancel = true;
@@ -247,7 +270,7 @@ public class BusinessAccountInformationFragment extends Fragment implements View
                 et_business_account_info_place_of_registration.setError(getString(R.string.error_field_required));
                 focusView = et_business_account_info_place_of_registration;
                 cancel = true;
-            } else if (TextUtils.isEmpty(business_account_info_office_address)) {
+            }*/ else if (TextUtils.isEmpty(business_account_info_office_address)) {
                 et_business_account_info_office_address.setError(getString(R.string.error_field_required));
                 focusView = et_business_account_info_office_address;
                 cancel = true;
@@ -255,11 +278,11 @@ public class BusinessAccountInformationFragment extends Fragment implements View
                 et_business_account_info_contact_number.setError(getString(R.string.error_field_required));
                 focusView = et_business_account_info_contact_number;
                 cancel = true;
-            } else if (TextUtils.isEmpty(business_account_info_fax_number)) {
+            } /*else if (TextUtils.isEmpty(business_account_info_fax_number)) {
                 et_business_account_info_fax_number.setError(getString(R.string.error_field_required));
                 focusView = et_business_account_info_fax_number;
                 cancel = true;
-            }
+            }*/
             if (cancel) {
 
                 focusView.requestFocus();
